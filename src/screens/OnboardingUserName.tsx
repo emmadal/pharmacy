@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {withTheme, Button, TextInput} from 'react-native-paper';
+import {withTranslation} from 'react-i18next';
 import * as regex from '../hooks/regex';
 
-const OnboardingUserName = ({theme}: any) => {
+const OnboardingUserName = ({t, theme}: any) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -41,7 +42,7 @@ const OnboardingUserName = ({theme}: any) => {
         style={styles.input}
         autoCapitalize="none"
         value={name}
-        label="Full Name"
+        label={t('Full Name')}
         onChangeText={text => setName(text)}
         right={<TextInput.Icon name="user" color={colors.primary} />}
       />
@@ -50,7 +51,7 @@ const OnboardingUserName = ({theme}: any) => {
         autoCapitalize="none"
         keyboardType="email-address"
         value={email}
-        label="Email"
+        label={t('Email')}
         onChangeText={text => setEmail(text)}
         right={<TextInput.Icon name="envelope" color={colors.primary} />}
       />
@@ -62,7 +63,7 @@ const OnboardingUserName = ({theme}: any) => {
         textContentType="oneTimeCode"
         autoCapitalize="none"
         value={password}
-        label="Password"
+        label={t('Password')}
         onChangeText={text => setPassword(text)}
         right={<TextInput.Icon name="lock" color={colors.primary} />}
       />
@@ -77,7 +78,7 @@ const OnboardingUserName = ({theme}: any) => {
         style={styles.btn}
         mode="contained"
         theme={{roundness: 20}}>
-        Create account
+        {t('Create Account')}
       </Button>
     </View>
   );
@@ -114,4 +115,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withTheme(OnboardingUserName);
+export default withTranslation()(withTheme(OnboardingUserName));

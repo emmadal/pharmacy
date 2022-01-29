@@ -1,9 +1,10 @@
 import React, {useState, useRef} from 'react';
 import {View, StyleSheet, Dimensions} from 'react-native';
 import {Text, withTheme, Button} from 'react-native-paper';
+import {withTranslation} from 'react-i18next';
 import PhoneInput from 'react-native-phone-number-input';
 
-const OnboardingPhone = ({theme, navigation}: any) => {
+const OnboardingPhone = ({t, theme, navigation}: any) => {
   const [phoneValue, setPhoneValue] = useState('');
   const [formattedValue, setFormattedValue] = useState('');
   const phoneInput = useRef<PhoneInput>(null);
@@ -11,7 +12,7 @@ const OnboardingPhone = ({theme, navigation}: any) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Welcome to drug delivery app</Text>
+      <Text style={styles.header}>{t('Welcome to drug delivery app')}</Text>
       <PhoneInput
         ref={phoneInput}
         defaultValue={phoneValue}
@@ -34,7 +35,7 @@ const OnboardingPhone = ({theme, navigation}: any) => {
         style={styles.btn}
         mode="contained"
         theme={{roundness: 20}}>
-        Next
+        {t('Next')}
       </Button>
     </View>
   );
@@ -52,9 +53,9 @@ const styles = StyleSheet.create({
     fontFamily: 'ProductSans-Regular',
   },
   header: {
-    fontFamily: 'ProductSans-Bold',
     textAlign: 'center',
-    fontSize: 20,
+    fontSize: 23,
+    fontFamily: 'ProductSans-Bold',
   },
   btn: {
     width: Dimensions.get('window').width / 2,
@@ -68,4 +69,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withTheme(OnboardingPhone);
+export default withTranslation()(withTheme(OnboardingPhone));

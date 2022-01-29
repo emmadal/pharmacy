@@ -1,8 +1,9 @@
 import React from 'react';
 import {StyleSheet, View, Dimensions} from 'react-native';
+import {withTranslation} from 'react-i18next';
 import {Button, withTheme} from 'react-native-paper';
 
-const Onboarding = ({theme, navigation}: any) => {
+const Onboarding = ({t, theme, navigation}: any) => {
   const {colors} = theme;
   return (
     <View style={styles.container}>
@@ -12,7 +13,7 @@ const Onboarding = ({theme, navigation}: any) => {
         onPress={() => navigation.navigate('Login')}
         style={styles.btn}
         theme={{roundness: 20}}>
-        Login
+        {t('Sign In')}
       </Button>
       <Button
         labelStyle={[{color: colors.white}, styles.labelStyle]}
@@ -20,7 +21,7 @@ const Onboarding = ({theme, navigation}: any) => {
         style={styles.btn}
         mode="contained"
         theme={{roundness: 20}}>
-        Signup
+        {t('Sign Up')}
       </Button>
     </View>
   );
@@ -44,4 +45,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withTheme(Onboarding);
+export default withTranslation()(withTheme(Onboarding));

@@ -1,5 +1,7 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {withTranslation} from 'react-i18next';
+import {withTheme} from 'react-native-paper';
 import OnboardingUserName from '../screens/OnboardingUserName';
 import OnboardingPhone from '../screens/OnboardingPhone';
 import Onboarding from '../screens/Onboarding';
@@ -7,7 +9,7 @@ import Login from '../screens/Login';
 
 const Stack = createNativeStackNavigator();
 
-const OnboardingScreen = () => {
+const OnboardingScreen = ({t}: any) => {
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -24,20 +26,29 @@ const OnboardingScreen = () => {
       <Stack.Screen
         name="OnboardingPhone"
         component={OnboardingPhone}
-        // options={{headerShown: false}}
+        options={{
+          headerTitle: t('Phone number'),
+          headerBackTitle: t('Back'),
+        }}
       />
       <Stack.Screen
         name="OnboardingUserName"
         component={OnboardingUserName}
-        // options={{headerShown: false}}
+        options={{
+          headerTitle: t('User details'),
+          headerBackTitle: t('Back'),
+        }}
       />
       <Stack.Screen
         name="Login"
         component={Login}
-        // options={{headerShown: false}}
+        options={{
+          headerTitle: t('Login'),
+          headerBackTitle: t('Back'),
+        }}
       />
     </Stack.Navigator>
   );
 };
 
-export default OnboardingScreen;
+export default withTranslation()(withTheme(OnboardingScreen));

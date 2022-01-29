@@ -39,18 +39,27 @@
 	<string/>
 	<key>UIAppFonts</key>
 	<array>
-		<string>ProductSans-Black.ttf</string>
-		<string>ProductSans-BlackItalic.ttf</string>
 		<string>ProductSans-Bold.ttf</string>
-		<string>ProductSans-BoldItalic.ttf</string>
-		<string>ProductSans-Italic.ttf</string>
 		<string>ProductSans-Light.ttf</string>
-		<string>ProductSans-LightItalic.ttf</string>
 		<string>ProductSans-Medium.ttf</string>
-		<string>ProductSans-MediumItalic.ttf</string>
 		<string>ProductSans-Regular.ttf</string>
 		<string>ProductSans-Thin.ttf</string>
-		<string>ProductSans-ThinItalic.ttf</string>
+		<string>AntDesign.ttf</string>
+		<string>Entypo.ttf</string>
+		<string>EvilIcons.ttf</string>
+		<string>Feather.ttf</string>
+		<string>FontAwesome.ttf</string>
+		<string>FontAwesome5_Brands.ttf</string>
+		<string>FontAwesome5_Regular.ttf</string>
+		<string>FontAwesome5_Solid.ttf</string>
+		<string>Foundation.ttf</string>
+		<string>Ionicons.ttf</string>
+		<string>MaterialIcons.ttf</string>
+		<string>MaterialCommunityIcons.ttf</string>
+		<string>SimpleLineIcons.ttf</string>
+		<string>Octicons.ttf</string>
+		<string>Zocial.ttf</string>
+		<string>Fontisto.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

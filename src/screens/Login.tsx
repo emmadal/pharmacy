@@ -1,24 +1,25 @@
 import React, {useState} from 'react';
 import {View, StyleSheet, Dimensions} from 'react-native';
 import {Text, withTheme, Button, TextInput} from 'react-native-paper';
+import {withTranslation} from 'react-i18next';
 import * as regex from '../hooks/regex';
 
-const Login = ({theme}: any) => {
+const Login = ({t, theme}: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const {colors} = theme;
   return (
     <View style={styles.container}>
       <View>
-        <Text style={styles.title}>Welcome to drug delivery app!</Text>
-        <Text style={styles.subtitle}>Connect you to start</Text>
+        <Text style={styles.title}>{t('Welcome to drug delivery app')}</Text>
+        <Text style={styles.subtitle}>{t('Connect you to start')}</Text>
       </View>
       <TextInput
         style={styles.input}
         autoCapitalize="none"
         keyboardType="email-address"
         value={email}
-        label="Email"
+        label={t('Email')}
         onChangeText={text => setEmail(text)}
         right={<TextInput.Icon name="envelope" color={colors.primary} />}
       />
@@ -30,7 +31,7 @@ const Login = ({theme}: any) => {
         textContentType="oneTimeCode"
         autoCapitalize="none"
         value={password}
-        label="Password"
+        label={t('Password')}
         onChangeText={text => setPassword(text)}
         right={<TextInput.Icon name="lock" color={colors.primary} />}
       />
@@ -43,7 +44,7 @@ const Login = ({theme}: any) => {
         style={styles.btn}
         mode="contained"
         theme={{roundness: 20}}>
-        Login
+        {t('Login')}
       </Button>
     </View>
   );
@@ -86,4 +87,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withTheme(Login);
+export default withTranslation()(withTheme(Login));
