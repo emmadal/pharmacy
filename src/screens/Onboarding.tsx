@@ -7,7 +7,7 @@ const Onboarding = ({theme, navigation}: any) => {
   return (
     <View style={styles.container}>
       <Button
-        labelStyle={{color: colors.white}}
+        labelStyle={[{color: colors.white}, styles.labelStyle]}
         mode="contained"
         onPress={() => navigation.navigate('Login')}
         style={styles.btn}
@@ -15,7 +15,7 @@ const Onboarding = ({theme, navigation}: any) => {
         Login
       </Button>
       <Button
-        labelStyle={{color: colors.white}}
+        labelStyle={[{color: colors.white}, styles.labelStyle]}
         onPress={() => navigation.navigate('OnboardingPhone')}
         style={styles.btn}
         mode="contained"
@@ -37,6 +37,10 @@ const styles = StyleSheet.create({
     padding: 3,
     alignSelf: 'center',
     marginVertical: 25,
+  },
+  labelStyle: {
+    fontFamily: 'ProductSans-Medium',
+    fontSize: 18,
   },
 });
 

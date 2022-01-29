@@ -25,7 +25,7 @@ const OnboardingPhone = ({theme, navigation}: any) => {
       />
       <Button
         disabled={phoneInput?.current?.isValidNumber(phoneValue) ? false : true}
-        labelStyle={{color: colors.white}}
+        labelStyle={[{color: colors.white}, styles.labelStyle]}
         onPress={() =>
           navigation.navigate('OnboardingUserName', {
             phoneNumber: formattedValue,
@@ -49,9 +49,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 30,
     width: 'auto',
     marginTop: 15,
+    fontFamily: 'ProductSans-Regular',
   },
   header: {
-    fontWeight: 'bold',
+    fontFamily: 'ProductSans-Bold',
     textAlign: 'center',
     fontSize: 20,
   },
@@ -60,6 +61,10 @@ const styles = StyleSheet.create({
     padding: 4,
     alignSelf: 'center',
     marginTop: 30,
+  },
+  labelStyle: {
+    fontFamily: 'ProductSans-Medium',
+    fontSize: 18,
   },
 });
 

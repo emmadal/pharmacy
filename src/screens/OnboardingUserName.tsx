@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, Dimensions} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import {withTheme, Button, TextInput} from 'react-native-paper';
 import * as regex from '../hooks/regex';
 
@@ -67,7 +67,7 @@ const OnboardingUserName = ({theme}: any) => {
         right={<TextInput.Icon name="lock" color={colors.primary} />}
       />
       <Button
-        labelStyle={{color: colors.white}}
+        labelStyle={[{color: colors.white}, styles.labelStyle]}
         disabled={
           name.length >= 6 && password.length === 8 && regex.email.test(email)
             ? false
@@ -95,12 +95,10 @@ const styles = StyleSheet.create({
   },
 
   header: {
-    fontWeight: 'bold',
     textAlign: 'center',
     fontSize: 20,
   },
   btn: {
-    width: Dimensions.get('window').width / 2,
     padding: 4,
     alignSelf: 'center',
     marginTop: 40,
@@ -109,6 +107,10 @@ const styles = StyleSheet.create({
     lineHeight: 30,
     height: 30,
     marginTop: 15,
+  },
+  labelStyle: {
+    fontFamily: 'ProductSans-Medium',
+    fontSize: 18,
   },
 });
 

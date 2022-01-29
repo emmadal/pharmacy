@@ -10,7 +10,7 @@ const Login = ({theme}: any) => {
   return (
     <View style={styles.container}>
       <View>
-        <Text style={styles.title}>Welcome to Pharma Delivery!</Text>
+        <Text style={styles.title}>Welcome to drug delivery app!</Text>
         <Text style={styles.subtitle}>Connect you to start</Text>
       </View>
       <TextInput
@@ -38,12 +38,12 @@ const Login = ({theme}: any) => {
         disabled={
           password.length === 8 && regex.email.test(email) ? false : true
         }
-        labelStyle={{color: colors.text}}
+        labelStyle={[{color: colors.white}, styles.labelStyle]}
         onPress={() => ''}
         style={styles.btn}
         mode="contained"
         theme={{roundness: 20}}>
-        Next
+        Login
       </Button>
     </View>
   );
@@ -60,13 +60,14 @@ const styles = StyleSheet.create({
   },
   title: {
     textAlign: 'center',
-    fontWeight: 'bold',
     fontSize: 23,
+    fontFamily: 'ProductSans-Bold',
   },
   subtitle: {
-    fontSize: 18,
+    fontSize: 20,
     textAlign: 'center',
     marginVertical: 15,
+    fontFamily: 'ProductSans-Light',
   },
   btn: {
     width: Dimensions.get('window').width / 1.5,
@@ -78,6 +79,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 30,
     marginBottom: 20,
     backgroundColor: 'transparent',
+  },
+  labelStyle: {
+    fontFamily: 'ProductSans-Medium',
+    fontSize: 18,
   },
 });
 
