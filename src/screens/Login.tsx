@@ -24,7 +24,12 @@ const Login = ({t, theme}: any) => {
       }
     } catch (error: any) {
       setLoading(false);
-      Alert.alert(t(`${error.message}`));
+      if (error.code === 'auth/user-not-found') {
+        Alert.alert(t('There is no user record with these identifiers'));
+      }
+      if (error.code === 'auth/wrong-password') {
+        Alert.alert(t('The password or email is invalid'));
+      }
     }
   };
 

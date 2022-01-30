@@ -32,14 +32,16 @@ export const register = async (data: any) => {
 };
 
 export const login = async (data: LoginTypes) => {
-  try {
-    const {email, password} = data;
-    const res = await auth().signInWithEmailAndPassword(email, password);
-    if (res.user) {
-      const doc = (await db.collection('users').doc(res.user.uid).get()).data();
-      return doc;
+  const {email, password} = data;
+  const res = await auth().signInWithEmailAndPassword(email, password);
+  if (res.user) {
+    const doc = await db.collection('users').doc(res.user.uid).get();
+    if (doc.exists) {
+      return doc.data();
     }
-  } catch (error: any) {
-    return error.message;
   }
+};
+
+export const logout = async () => {
+  return await auth().signOut();
 };

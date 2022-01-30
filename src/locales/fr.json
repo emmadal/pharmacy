@@ -98,5 +98,7 @@
     "Define as main delivery address": "Définir comme adresse de livraison principale",
     "Your Cart is Empty": "Votre panier est vide",
     "You haven't added anything to your cart yet": "Vous n'avez rien ajouté à votre panier",
-    "Go shopping": "Faire des achats"
+    "Go shopping": "Faire des achats",
+    "There is no user record with these identifiers": "Il n'y a pas d'enregistrement d'utilisateur avec ces identifiants",
+    "The password or email is invalid": "Le mot de passe ou l'e-mail est invalide"
 }

@@ -95,5 +95,7 @@
     "Define as main delivery address": "Define as main delivery address",
     "Your Cart is Empty": "Your Cart is Empty",
     "You haven't added anything to your cart yet": "You haven't added anything to your cart yet",
-    "Go shopping": "Go shopping"
+    "Go shopping": "Go shopping",
+    "There is no user record with these identifiers": "There is no user record with these identifiers",
+    "The password or email is invalid": "The password or email is invalid"
 }
