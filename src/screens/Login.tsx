@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import {View, StyleSheet, Dimensions, Alert} from 'react-native';
 import {Text, withTheme, Button, TextInput} from 'react-native-paper';
 import {withTranslation} from 'react-i18next';
@@ -19,7 +19,6 @@ const Login = ({t, theme}: any) => {
       setLoading(!loading);
       const res = await login({email, password});
       if (res) {
-        setLoading(false);
         setUser(res);
       }
     } catch (error: any) {

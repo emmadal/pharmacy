@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {LogBox, Platform} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {Provider as PaperProvider} from 'react-native-paper';
@@ -7,6 +7,8 @@ import Menu from './src/routes/Menu';
 import {LightTheme, DarkTheme} from './src/themes';
 import OnboardingScreen from './src/routes/OnboardingScreen';
 import {UserContext} from './src/context';
+import auth from '@react-native-firebase/auth';
+import {getUserDetails} from './src/api';
 
 LogBox.ignoreLogs([
   "[react-native-gesture-handler] Seems like you're using an old API with gesture components, check out new Gestures system!",
@@ -14,11 +16,21 @@ LogBox.ignoreLogs([
 
 const App = () => {
   const [isThemeDark, setIsThemeDark] = useState(false);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState();
 
   if (Platform.OS === 'ios') {
     Icon.loadFont();
   }
+
+  // Handle user state changes
+  const onAuthStateChanged = u => {
+    getUserDetails(u?.uid).then(e => setUser(e));
+  };
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber; // unsubscribe on unmount
+  }, []);
 
   let theme = isThemeDark ? DarkTheme : LightTheme;
 
@@ -28,7 +40,7 @@ const App = () => {
       settings={{icon: props => <Icon {...props} />}}>
       <NavigationContainer theme={theme}>
         <UserContext.Provider value={{setUser, user}}>
-          {user === null ? <OnboardingScreen /> : <Menu />}
+          {!user ? <OnboardingScreen /> : <Menu />}
         </UserContext.Provider>
       </NavigationContainer>
     </PaperProvider>

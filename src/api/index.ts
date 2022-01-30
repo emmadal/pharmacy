@@ -45,3 +45,16 @@ export const login = async (data: LoginTypes) => {
 export const logout = async () => {
   return await auth().signOut();
 };
+
+export const getUserDetails = async (uid: string) => {
+  const res = await db.collection('users').doc(uid).get();
+  if (res.exists) {
+    return res.data();
+  }
+};
+
+export const checkAuth = () => {
+  auth().onAuthStateChanged(async user => {
+    await getUserDetails(user?.uid);
+  });
+};
