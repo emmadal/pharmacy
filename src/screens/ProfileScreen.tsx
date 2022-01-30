@@ -1,4 +1,4 @@
-import React, {useContext, useRef, useEffect, useCallback} from 'react';
+import React, {useContext, useRef, useCallback} from 'react';
 import {
   View,
   StyleSheet,
@@ -22,6 +22,7 @@ import {withTranslation} from 'react-i18next';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import {UserContext} from '../context';
 import {logout} from '../api';
+import EditProfile from '../components/EditProfile';
 
 LogBox.ignoreLogs(['Sending...']);
 
@@ -145,7 +146,7 @@ const ProfileScreen = ({t, theme}: any) => {
         <ScrollView
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}>
-          {/* <EditProfile /> */}
+          <EditProfile />
         </ScrollView>
       </RBSheet>
     </ScrollView>
