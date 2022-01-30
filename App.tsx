@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Menu from './src/routes/Menu';
 import {LightTheme, DarkTheme} from './src/themes';
 import OnboardingScreen from './src/routes/OnboardingScreen';
+import {UserContext} from './src/context';
 
 LogBox.ignoreLogs([
   "[react-native-gesture-handler] Seems like you're using an old API with gesture components, check out new Gestures system!",
@@ -13,7 +14,7 @@ LogBox.ignoreLogs([
 
 const App = () => {
   const [isThemeDark, setIsThemeDark] = useState(false);
-  const [state, setState] = useState(null);
+  const [user, setUser] = useState(null);
 
   if (Platform.OS === 'ios') {
     Icon.loadFont();
@@ -26,7 +27,9 @@ const App = () => {
       theme={theme}
       settings={{icon: props => <Icon {...props} />}}>
       <NavigationContainer theme={theme}>
-        {state === null ? <OnboardingScreen /> : <Menu />}
+        <UserContext.Provider value={{setUser, user}}>
+          {user === null ? <OnboardingScreen /> : <Menu />}
+        </UserContext.Provider>
       </NavigationContainer>
     </PaperProvider>
   );

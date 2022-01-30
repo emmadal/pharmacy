@@ -1,15 +1,36 @@
-import React, {useState} from 'react';
-import {View, StyleSheet, Dimensions} from 'react-native';
+import React, {useState, useContext} from 'react';
+import {View, StyleSheet, Dimensions, Alert} from 'react-native';
 import {Text, withTheme, Button, TextInput} from 'react-native-paper';
 import {withTranslation} from 'react-i18next';
 import * as regex from '../hooks/regex';
+import {login} from '../api';
+import {UserContext} from '../context';
+import Loader from '../components/Loader';
 
 const Login = ({t, theme}: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const {setUser} = useContext(UserContext);
   const {colors} = theme;
+
+  const handleLogin = async () => {
+    try {
+      setLoading(!loading);
+      const res = await login({email, password});
+      if (res) {
+        setLoading(false);
+        setUser(res);
+      }
+    } catch (error: any) {
+      setLoading(false);
+      Alert.alert(t(`${error.message}`));
+    }
+  };
+
   return (
     <View style={styles.container}>
+      <Loader loading={loading} />
       <View>
         <Text style={styles.title}>{t('Welcome to drug delivery app')}</Text>
         <Text style={styles.subtitle}>{t('Connect you to start')}</Text>
@@ -40,7 +61,7 @@ const Login = ({t, theme}: any) => {
           password.length === 8 && regex.email.test(email) ? false : true
         }
         labelStyle={[{color: colors.white}, styles.labelStyle]}
-        onPress={() => ''}
+        onPress={handleLogin}
         style={styles.btn}
         mode="contained"
         theme={{roundness: 20}}>
