@@ -1,43 +1,43 @@
 import React, {useState} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Alert} from 'react-native';
 import {withTheme, Button, TextInput} from 'react-native-paper';
 import {withTranslation} from 'react-i18next';
 import * as regex from '../hooks/regex';
+import {register} from '../api';
+import Loader from '../components/Loader';
 
-const OnboardingUserName = ({t, theme}: any) => {
+const OnboardingUserName = ({t, theme, route}: any) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
   const [password, setPassword] = useState('');
   const {colors} = theme;
 
   const createAccount = async () => {
-    // const phoneNumber = route.params.phoneNumber;
-    // try {
-    //   setLoading(!loading);
-    //   const isEmail = await auth().fetchSignInMethodsForEmail(email);
-    //   if (!isEmail.includes(email)) {
-    //     setLoading(false);
-    //     navigation.navigate('OnboardingPassCode', {
-    //       name,
-    //       email,
-    //       password,
-    //       phoneNumber,
-    //     });
-    //   } else {
-    //     setLoading(false);
-    //     Alert.alert('Email address already used');
-    //     return;
-    //   }
-    // } catch (error: any) {
-    //   console.log(error.message);
-    //   setLoading(false);
-    //   Alert.alert('Something wrong occured');
-    //   return;
-    // }
+    try {
+      setLoading(!loading);
+      const userData = {
+        email,
+        password,
+        fullName: name,
+        phone: route.params.phoneNumber,
+      };
+      const req = await register(userData);
+      if (req) {
+        setLoading(false);
+        console.log(req);
+      }
+    } catch (error: any) {
+      console.log(error.message);
+      setLoading(false);
+      Alert.alert(t(`${error.message}`));
+      return;
+    }
   };
 
   return (
     <View style={styles.container}>
+      <Loader loading={loading} />
       <TextInput
         style={styles.input}
         autoCapitalize="none"
