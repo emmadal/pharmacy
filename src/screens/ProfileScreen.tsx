@@ -1,4 +1,4 @@
-import React, {useContext, useRef, useCallback} from 'react';
+import React, {useContext, useRef, useCallback, useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -18,6 +18,7 @@ import {
   Divider,
 } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Entypo';
+import ImageView from 'react-native-image-viewing';
 import {withTranslation} from 'react-i18next';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import {UserContext} from '../context';
@@ -29,19 +30,32 @@ LogBox.ignoreLogs(['Sending...']);
 const ProfileScreen = ({t, theme}: any) => {
   const {colors} = theme;
   const refRBSheet = useRef();
+  const [visible, setIsVisible] = useState(false);
   const {user, setUser} = useContext(UserContext);
 
   const handleLogout = useCallback(() => {
     logout().then(() => setUser(null));
   }, [setUser]);
 
+  const handleViewImage = () => setIsVisible(!visible);
+
   return (
     <ScrollView
       style={styles.container}
       showsHorizontalScrollIndicator={false}
       showsVerticalScrollIndicator={false}>
+      <ImageView
+        images={[
+          {
+            uri: 'https://c6oxm85c.cloudimg.io/width/700/png-lossless.fgaussian0.foil1/https://az617363.vo.msecnd.net/imgmodels/models/MD10004352/large-1469788720-2318efb4af494297475f048c7f775d9a.jpg',
+          },
+        ]}
+        imageIndex={0}
+        visible={visible}
+        onRequestClose={() => setIsVisible(false)}
+      />
       <View style={styles.header}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handleViewImage}>
           <Avatar.Image
             size={100}
             source={{
