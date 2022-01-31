@@ -1,19 +1,35 @@
 import React, {useState, useContext} from 'react';
-import {View, StyleSheet, LogBox} from 'react-native';
+import {View, StyleSheet, LogBox, Alert} from 'react-native';
 import {TextInput, withTheme, Button} from 'react-native-paper';
 import {withTranslation} from 'react-i18next';
 import {UserContext} from '../context';
+import {updateProfile} from '../api';
 
 LogBox.ignoreLogs(['Sending...']);
 
 const EditProfile = ({t, theme}: any) => {
-  const {user}: any = useContext(UserContext);
-  const [name, setName] = useState(user?.fullName);
-  const [phone, setPhone] = useState(user?.phoneNumber ?? '');
+  const {user, setUser}: any = useContext(UserContext);
+  const [fullName, setFullName] = useState(user?.fullName);
+  const [phoneNumber, setPhoneNumber] = useState(user?.phoneNumber ?? '');
   const [loading, setLoading] = useState(false);
   const {colors} = theme;
 
-  const handleSubmit = () => setLoading(!loading);
+  const handleSubmit = async () => {
+    setLoading(!loading);
+    try {
+      if (fullName.length && phoneNumber.length) {
+        const doc = await updateProfile(user, {fullName, phoneNumber});
+        if (doc) {
+          setUser(doc);
+          setLoading(false);
+        }
+      }
+    } catch (error: any) {
+      Alert.alert(t('Operation cancelled'));
+      setLoading(false);
+      return;
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -30,22 +46,22 @@ const EditProfile = ({t, theme}: any) => {
         <TextInput
           style={styles.input}
           autoCapitalize="none"
-          value={name}
+          value={fullName}
           label={t('Full Name')}
-          onChangeText={text => setName(text)}
+          onChangeText={text => setFullName(text)}
           right={<TextInput.Icon name="user-o" color={colors.primary} />}
         />
         <TextInput
           style={styles.input}
           keyboardType="number-pad"
           autoCapitalize="none"
-          value={phone}
+          value={phoneNumber}
           label={t('Phone number')}
-          onChangeText={text => setPhone(text)}
+          onChangeText={text => setPhoneNumber(text)}
           right={<TextInput.Icon name="phone" color={colors.primary} />}
         />
         <Button
-          disabled={phone.length && name.length > 5 ? false : true}
+          disabled={phoneNumber.length && fullName.length >= 5 ? false : true}
           loading={loading}
           labelStyle={{color: colors.white}}
           onPress={handleSubmit}
