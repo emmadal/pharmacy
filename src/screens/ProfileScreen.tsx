@@ -7,6 +7,7 @@ import {
   Platform,
   ScrollView,
   LogBox,
+  Alert,
 } from 'react-native';
 import {
   withTheme,
@@ -17,54 +18,82 @@ import {
   Card,
   Divider,
 } from 'react-native-paper';
+import {launchImageLibrary} from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/Entypo';
-import ImageView from 'react-native-image-viewing';
 import {withTranslation} from 'react-i18next';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import {UserContext} from '../context';
-import {logout} from '../api';
+import {logout, updateProfile, uploadFile} from '../api';
 import EditProfile from '../components/EditProfile';
+import Loader from '../components/Loader';
 
 LogBox.ignoreLogs(['Sending...']);
 
 const ProfileScreen = ({t, theme}: any) => {
   const {colors} = theme;
   const refRBSheet = useRef();
-  const [visible, setIsVisible] = useState(false);
-  const {user, setUser} = useContext(UserContext);
+  const [loading, setLoading] = useState(false);
+  const {user, setUser}: any = useContext(UserContext);
 
   const handleLogout = useCallback(() => {
     logout().then(() => setUser(null));
   }, [setUser]);
 
-  const handleViewImage = () => setIsVisible(!visible);
+  const handleUploadImage = async () => {
+    try {
+      const pic = await launchImageLibrary({mediaType: 'photo'});
+      setLoading(!loading);
+      if (pic.assets) {
+        const photoURL = await uploadFile({
+          uri: pic?.assets[0].uri,
+          fileName: pic?.assets[0].fileName,
+        });
+        if (photoURL) {
+          const doc = await updateProfile(user, {photoURL});
+          setUser(doc);
+          setLoading(false);
+        }
+      } else {
+        Alert.alert(t('Operation cancelled'));
+        setLoading(false);
+        return;
+      }
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  };
+
+  const getFirstLetterOfName = () => {
+    const matches = user?.fullName.match(/\b(\w)/g);
+    return matches.join('');
+  };
 
   return (
     <ScrollView
       style={styles.container}
       showsHorizontalScrollIndicator={false}
       showsVerticalScrollIndicator={false}>
-      <ImageView
-        images={[
-          {
-            uri: 'https://c6oxm85c.cloudimg.io/width/700/png-lossless.fgaussian0.foil1/https://az617363.vo.msecnd.net/imgmodels/models/MD10004352/large-1469788720-2318efb4af494297475f048c7f775d9a.jpg',
-          },
-        ]}
-        imageIndex={0}
-        visible={visible}
-        onRequestClose={() => setIsVisible(false)}
-      />
+      <Loader loading={loading} />
       <View style={styles.header}>
-        <TouchableOpacity onPress={handleViewImage}>
-          <Avatar.Image
-            size={100}
-            source={{
-              uri: 'https://c6oxm85c.cloudimg.io/width/700/png-lossless.fgaussian0.foil1/https://az617363.vo.msecnd.net/imgmodels/models/MD10004352/large-1469788720-2318efb4af494297475f048c7f775d9a.jpg',
-            }}
-          />
+        <TouchableOpacity onPress={handleUploadImage}>
+          {user?.photoURL ? (
+            <Avatar.Image
+              size={80}
+              source={{
+                uri: user?.photoURL,
+              }}
+            />
+          ) : (
+            <Avatar.Text
+              color={colors.white}
+              size={80}
+              label={getFirstLetterOfName()}
+            />
+          )}
         </TouchableOpacity>
         <View style={styles.userNameContainer}>
           <Title style={styles.userName}>{user?.fullName}</Title>
+          <Subheading>{user?.phoneNumber}</Subheading>
           <TouchableOpacity onPress={() => refRBSheet?.current?.open()}>
             <Subheading style={{color: colors.primary}}>
               {t('Edit profile')}
@@ -145,7 +174,7 @@ const ProfileScreen = ({t, theme}: any) => {
       </View>
       <RBSheet
         animationType="slide"
-        height={450}
+        height={400}
         ref={refRBSheet}
         closeOnDragDown={true}
         closeOnPressMask={true}

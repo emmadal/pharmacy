@@ -8,7 +8,7 @@ import {LightTheme, DarkTheme} from './src/themes';
 import OnboardingScreen from './src/routes/OnboardingScreen';
 import {UserContext} from './src/context';
 import auth from '@react-native-firebase/auth';
-import {getUserDetails} from './src/api';
+import {getProfile} from './src/api';
 
 LogBox.ignoreLogs([
   "[react-native-gesture-handler] Seems like you're using an old API with gesture components, check out new Gestures system!",
@@ -24,7 +24,7 @@ const App = () => {
 
   // Handle user state changes
   const onAuthStateChanged = u => {
-    getUserDetails(u?.uid).then(e => setUser(e));
+    getProfile(u?.uid).then(e => setUser(e));
   };
 
   useEffect(() => {

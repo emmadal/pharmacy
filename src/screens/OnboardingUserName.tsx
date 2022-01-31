@@ -22,11 +22,7 @@ const OnboardingUserName = ({t, theme, route}: any) => {
         fullName: name,
         phone: route.params.phoneNumber,
       };
-      const req = await register(userData);
-      if (req) {
-        setLoading(false);
-        console.log(req);
-      }
+      await register(userData);
     } catch (error: any) {
       console.log(error.message);
       setLoading(false);
