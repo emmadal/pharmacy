@@ -17,12 +17,13 @@ import {
   Subheading,
   Card,
   Divider,
+  Switch,
 } from 'react-native-paper';
 import {launchImageLibrary} from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/Entypo';
 import {withTranslation} from 'react-i18next';
 import RBSheet from 'react-native-raw-bottom-sheet';
-import {UserContext} from '../context';
+import {UserContext, ThemeContext} from '../context';
 import {logout, updateProfile, uploadFile} from '../api';
 import EditProfile from '../components/EditProfile';
 import Loader from '../components/Loader';
@@ -34,6 +35,7 @@ const ProfileScreen = ({t, theme}: any) => {
   const refRBSheet = useRef();
   const [loading, setLoading] = useState(false);
   const {user, setUser}: any = useContext(UserContext);
+  const {toggleTheme, isThemeDark}: any = useContext(ThemeContext);
 
   const handleLogout = useCallback(() => {
     logout().then(() => setUser(null));
@@ -162,6 +164,19 @@ const ProfileScreen = ({t, theme}: any) => {
             size={20}
           />
         </TouchableOpacity>
+        <Divider />
+        <View style={styles.optionContainer}>
+          <Title style={styles.titleOptions}>
+            <Icon name="moon" size={25} color={colors.placeholder} />
+            {'  '}
+            {t('Dark mode')}
+          </Title>
+          <Switch
+            color={colors.warning}
+            value={isThemeDark}
+            onValueChange={toggleTheme}
+          />
+        </View>
         <Divider />
         <TouchableOpacity style={styles.optionContainer} onPress={handleLogout}>
           <Title style={styles.titleOptions}>

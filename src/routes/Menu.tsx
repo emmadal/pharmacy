@@ -15,7 +15,7 @@ const Menu = ({t, theme}: any) => {
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarStyle: {margin: 7, borderTopColor: 'transparent'},
+        tabBarStyle: { borderColor: 'transparent', height: 100},
       }}>
       <Tab.Screen
         name="Home"
