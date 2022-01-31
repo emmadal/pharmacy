@@ -36,6 +36,7 @@ const OnboardingUserName = ({t, theme, route}: any) => {
       <Loader loading={loading} />
       <TextInput
         style={styles.input}
+        maxLength={17}
         autoCapitalize="none"
         value={name}
         label={t('Full Name')}

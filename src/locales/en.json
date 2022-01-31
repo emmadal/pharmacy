@@ -7,6 +7,7 @@
     "New password": "New password",
     "Update profile": "Update profile",
     "Operation cancelled": "Operation cancelled",
+    "Please choose your language": "Please choose your language",
     "Phone number": "Phone number",
     "User details": "User details",
     "Email": "Email",
@@ -72,6 +73,8 @@
     "Ordered items": "Ordered items",
     "Amount": "Amount",
     "Qte": "Qte",
+    "Yes": "Yes",
+    "No": "No",
     "Pending": "Pending",
     "Accepted": "Accepted",
     "Delivered": "Delivered",
@@ -98,5 +101,6 @@
     "You haven't added anything to your cart yet": "You haven't added anything to your cart yet",
     "Go shopping": "Go shopping",
     "There is no user record with these identifiers": "There is no user record with these identifiers",
-    "The password or email is invalid": "The password or email is invalid"
+    "The password or email is invalid": "The password or email is invalid",
+    "Do you want to apply this change": "Do you want to apply this change"
 }

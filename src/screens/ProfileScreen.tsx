@@ -27,6 +27,7 @@ import {UserContext, ThemeContext} from '../context';
 import {logout, updateProfile, uploadFile} from '../api';
 import EditProfile from '../components/EditProfile';
 import Loader from '../components/Loader';
+import LanguageModal from '../components/LanguageModal';
 
 LogBox.ignoreLogs(['Sending...']);
 
@@ -34,6 +35,7 @@ const ProfileScreen = ({t, theme}: any) => {
   const {colors} = theme;
   const refRBSheet = useRef();
   const [loading, setLoading] = useState(false);
+  const [isModal, setIsModal] = useState(false);
   const {user, setUser}: any = useContext(UserContext);
   const {toggleTheme, isThemeDark}: any = useContext(ThemeContext);
 
@@ -70,12 +72,15 @@ const ProfileScreen = ({t, theme}: any) => {
     return matches.join('');
   };
 
+  const handleLanguage = () => setIsModal(!isModal);
+
   return (
     <ScrollView
       style={styles.container}
       showsHorizontalScrollIndicator={false}
       showsVerticalScrollIndicator={false}>
       <Loader loading={loading} />
+      <LanguageModal isModal={isModal} setIsModal={setIsModal} />
       <View style={styles.header}>
         <TouchableOpacity onPress={handleUploadImage}>
           {user?.photoURL ? (
@@ -151,11 +156,13 @@ const ProfileScreen = ({t, theme}: any) => {
             size={20}
           />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.optionContainer}>
+        <TouchableOpacity
+          style={styles.optionContainer}
+          onPress={handleLanguage}>
           <Title style={styles.titleOptions}>
-            <Icon name="lock" size={25} color={colors.placeholder} />
+            <Icon name="globe" size={25} color={colors.placeholder} />
             {'  '}
-            {t('Privacy')}
+            {t('Language')}
           </Title>
           <Icon
             color={colors.warning}
@@ -214,11 +221,14 @@ const ProfileScreen = ({t, theme}: any) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: Platform.OS === 'ios' ? 30 : 20,
+    paddingTop: Platform.OS === 'ios' ? 40 : 30,
     paddingHorizontal: 20,
   },
   optionView: {
     marginBottom: 40,
+  },
+  modal: {
+    marginHorizontal: 10,
   },
   optionContainer: {
     display: 'flex',

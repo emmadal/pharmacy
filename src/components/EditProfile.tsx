@@ -45,6 +45,7 @@ const EditProfile = ({t, theme}: any) => {
         />
         <TextInput
           style={styles.input}
+          maxLength={17}
           autoCapitalize="none"
           value={fullName}
           label={t('Full Name')}

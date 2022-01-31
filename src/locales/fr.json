@@ -6,7 +6,10 @@
     "Forgot password": "Mot de passe oublié",
     "Password": "Mot de passe",
     "Email": "Email",
+    "Yes": "Oui",
+    "No": "Non",
     "Operation cancelled": "Opération annulée",
+    "Please choose your language": "Veuillez choisir votre langue",
     "English": "Anglais",
     "French": "Français",
     "User details": "Profil de l'utilisateur",
@@ -101,5 +104,6 @@
     "You haven't added anything to your cart yet": "Vous n'avez rien ajouté à votre panier",
     "Go shopping": "Faire des achats",
     "There is no user record with these identifiers": "Il n'y a pas d'enregistrement d'utilisateur avec ces identifiants",
-    "The password or email is invalid": "Le mot de passe ou l'e-mail est invalide"
+    "The password or email is invalid": "Le mot de passe ou l'e-mail est invalide",
+    "Do you want to apply this change": "Voulez-vous appliquer ce changement"
 }

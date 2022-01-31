@@ -15,8 +15,6 @@ const getLocale = () => {
   return deviceLanguage.replace(/_US/g, '');
 };
 
-console.log('deviceLanguage', getLocale());
-
 i18n.use(initReactI18next).init({
   resources,
   lng: getLocale(),

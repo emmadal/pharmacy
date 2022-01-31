@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useCallback, useMemo} from 'react';
-import {LogBox, Platform, StatusBar} from 'react-native';
+import {LogBox, StatusBar, Platform} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {Provider as PaperProvider} from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Menu from './src/routes/Menu';
 import {LightTheme, DarkTheme} from './src/themes';
 import OnboardingScreen from './src/routes/OnboardingScreen';
-import {UserContext, ThemeContext} from './src/context';
+import {UserContext, ThemeContext, LocaleContext} from './src/context';
 import auth from '@react-native-firebase/auth';
 import {getProfile} from './src/api';
 
@@ -17,7 +17,14 @@ LogBox.ignoreLogs([
 
 const App = () => {
   const [isThemeDark, setIsThemeDark] = useState(false);
+  const [locale, setLocale] = useState();
   const [user, setUser] = useState();
+
+  useEffect(() => {
+    AsyncStorage.getItem('@locale').then((value: any) => {
+      setLocale(value);
+    });
+  }, [locale]);
 
   if (Platform.OS === 'ios') {
     Icon.loadFont();
@@ -68,11 +75,13 @@ const App = () => {
         networkActivityIndicatorVisible={true}
       />
       <ThemeContext.Provider value={preferences}>
-        <NavigationContainer theme={theme}>
-          <UserContext.Provider value={{setUser, user}}>
-            {!user ? <OnboardingScreen /> : <Menu />}
-          </UserContext.Provider>
-        </NavigationContainer>
+        <LocaleContext.Provider value={{locale, setLocale}}>
+          <NavigationContainer theme={theme}>
+            <UserContext.Provider value={{setUser, user}}>
+              {!user ? <OnboardingScreen /> : <Menu />}
+            </UserContext.Provider>
+          </NavigationContainer>
+        </LocaleContext.Provider>
       </ThemeContext.Provider>
     </PaperProvider>
   );
