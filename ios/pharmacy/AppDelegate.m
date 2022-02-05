@@ -1,5 +1,6 @@
 #import "AppDelegate.h"
 
+#import "RNSplashScreen.h"
 #import <React/RCTBridge.h>
 #import <Firebase.h>
 #import <React/RCTBundleURLProvider.h>
@@ -49,6 +50,13 @@ static void InitializeFlipper(UIApplication *application) {
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+
+  // Place this code after "[self.window makeKeyAndVisible]" and before "return YES;"
+  UIStoryboard *sb = [UIStoryboard storyboardWithName:@"LaunchScreen" bundle:nil];
+  UIViewController *vc = [sb instantiateInitialViewController];
+  rootView.loadingView = vc.view;
+
+  [RNSplashScreen show];
   return YES;
 }
 

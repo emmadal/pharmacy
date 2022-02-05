@@ -4,11 +4,12 @@ import {NavigationContainer} from '@react-navigation/native';
 import {Provider as PaperProvider} from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import auth from '@react-native-firebase/auth';
+import SplashScreen from 'react-native-splash-screen';
 import MenuTab from './src/routes/MenuTab';
 import OnboardingStack from './src/routes/OnboardingStack';
 import {LightTheme, DarkTheme} from './src/themes';
 import {UserContext, ThemeContext, LocaleContext} from './src/context';
-import auth from '@react-native-firebase/auth';
 import {getProfile} from './src/api';
 
 LogBox.ignoreLogs([
@@ -58,6 +59,9 @@ const App = () => {
   };
 
   useEffect(() => {
+    //Hide Splash screen on app load.
+    SplashScreen.hide();
+    //Check if user is authenticated on app load..
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
     return subscriber; // unsubscribe on unmount
   }, []);
