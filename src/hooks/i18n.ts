@@ -6,7 +6,7 @@ import * as fr from '../locales/fr.json';
 
 const resources = {en: {translation: en}, fr: {translation: fr}};
 
-const getLocale = () => {
+const getLocale = (): string => {
   let deviceLanguage =
     Platform.OS === 'ios'
       ? NativeModules.SettingsManager.settings.AppleLocale ||
@@ -16,6 +16,7 @@ const getLocale = () => {
 };
 
 i18n.use(initReactI18next).init({
+  compatibilityJSON: 'v3',
   resources,
   lng: getLocale(),
   fallbackLng: getLocale(),
