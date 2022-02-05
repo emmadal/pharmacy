@@ -1,21 +1,20 @@
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {withTheme} from 'react-native-paper';
 import {withTranslation} from 'react-i18next';
 import Icon from 'react-native-vector-icons/Entypo';
 import HomeScreen from '../screens/HomeScreen';
 import OrderScreen from '../screens/OrderScreen';
-import ProfileScreen from '../screens/ProfileScreen';
+import ProfileStack from './ProfileStack';
 
 const Tab = createBottomTabNavigator();
 
-const Menu = ({t, theme}: any) => {
+const MenuTab = ({t, theme}: any) => {
   const {colors} = theme;
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarStyle: { borderColor: 'transparent', height: 100},
+        tabBarStyle: {borderColor: 'transparent', height: 100},
       }}>
       <Tab.Screen
         name="Home"
@@ -59,9 +58,9 @@ const Menu = ({t, theme}: any) => {
       />
       <Tab.Screen
         name="Profile"
-        component={ProfileScreen}
+        component={ProfileStack}
         options={{
-          title: t('Profile'),
+          headerShown: false,
           tabBarLabelStyle: {
             fontSize: 18,
             fontFamily: 'ProductSans-Bold',
@@ -81,4 +80,4 @@ const Menu = ({t, theme}: any) => {
   );
 };
 
-export default withTranslation()(withTheme(Menu));
+export default withTranslation()(withTheme(MenuTab));

@@ -4,9 +4,9 @@ import {NavigationContainer} from '@react-navigation/native';
 import {Provider as PaperProvider} from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import Menu from './src/routes/Menu';
+import MenuTab from './src/routes/MenuTab';
+import OnboardingStack from './src/routes/OnboardingStack';
 import {LightTheme, DarkTheme} from './src/themes';
-import OnboardingScreen from './src/routes/OnboardingScreen';
 import {UserContext, ThemeContext, LocaleContext} from './src/context';
 import auth from '@react-native-firebase/auth';
 import {getProfile} from './src/api';
@@ -78,7 +78,7 @@ const App = () => {
         <LocaleContext.Provider value={{locale, setLocale}}>
           <NavigationContainer theme={theme}>
             <UserContext.Provider value={{setUser, user}}>
-              {!user ? <OnboardingScreen /> : <Menu />}
+              {!user ? <OnboardingStack /> : <MenuTab />}
             </UserContext.Provider>
           </NavigationContainer>
         </LocaleContext.Provider>

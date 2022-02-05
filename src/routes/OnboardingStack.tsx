@@ -9,7 +9,7 @@ import Login from '../screens/Login';
 
 const Stack = createNativeStackNavigator();
 
-const OnboardingScreen = ({t}: any) => {
+const OnboardingStack = ({t}: any) => {
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -51,4 +51,4 @@ const OnboardingScreen = ({t}: any) => {
   );
 };
 
-export default withTranslation()(withTheme(OnboardingScreen));
+export default withTranslation()(withTheme(OnboardingStack));

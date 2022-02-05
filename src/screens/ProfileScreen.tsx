@@ -20,7 +20,7 @@ import {
   Switch,
 } from 'react-native-paper';
 import {launchImageLibrary} from 'react-native-image-picker';
-import Icon from 'react-native-vector-icons/Entypo';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import {withTranslation} from 'react-i18next';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import {UserContext, ThemeContext} from '../context';
@@ -28,7 +28,7 @@ import {logout, updateProfile, uploadFile} from '../api';
 import EditProfile from '../components/EditProfile';
 import Loader from '../components/Loader';
 import LanguageModal from '../components/LanguageModal';
-
+import {useNavigation} from '@react-navigation/native';
 LogBox.ignoreLogs(['Sending...']);
 
 const ProfileScreen = ({t, theme}: any) => {
@@ -38,6 +38,7 @@ const ProfileScreen = ({t, theme}: any) => {
   const [isModal, setIsModal] = useState(false);
   const {user, setUser}: any = useContext(UserContext);
   const {toggleTheme, isThemeDark}: any = useContext(ThemeContext);
+  const navigation = useNavigation();
 
   const handleLogout = useCallback(() => {
     logout().then(() => setUser(null));
@@ -114,11 +115,11 @@ const ProfileScreen = ({t, theme}: any) => {
             <Card.Content>
               <Icon name="heart" size={25} color={colors.warning} />
               <Title style={styles.cardTitle}>19</Title>
-              <Paragraph>{t('Favourites lists')}</Paragraph>
+              <Paragraph>{t('Best pharmacy')}</Paragraph>
             </Card.Content>
           </Card>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => ''}>
+        <TouchableOpacity onPress={() => navigation.navigate('OrderHistory')}>
           <Card style={styles.profileCard}>
             <Card.Content>
               <Icon name="shopping-cart" size={25} color={colors.warning} />
@@ -129,23 +130,12 @@ const ProfileScreen = ({t, theme}: any) => {
         </TouchableOpacity>
       </View>
       <Divider />
-      <View style={styles.optionView}>
-        <TouchableOpacity style={styles.optionContainer}>
+      <View>
+        <TouchableOpacity
+          style={styles.optionContainer}
+          onPress={() => navigation.navigate('Shipping')}>
           <Title style={styles.titleOptions}>
-            <Icon name="credit-card" size={25} color={colors.placeholder} />
-            {'  '}
-            {t('Payment methods')}
-          </Title>
-          <Icon
-            color={colors.warning}
-            style={styles.iconOptions}
-            name="chevron-right"
-            size={20}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.optionContainer} onPress={() => ''}>
-          <Title style={styles.titleOptions}>
-            <Icon name="location-pin" size={25} color={colors.placeholder} />
+            <Icon name="map-marker" size={25} color={colors.placeholder} />
             {'  '}
             {t('Shipping address')}
           </Title>
@@ -156,6 +146,7 @@ const ProfileScreen = ({t, theme}: any) => {
             size={20}
           />
         </TouchableOpacity>
+        <Divider />
         <TouchableOpacity
           style={styles.optionContainer}
           onPress={handleLanguage}>
@@ -174,9 +165,9 @@ const ProfileScreen = ({t, theme}: any) => {
         <Divider />
         <View style={styles.optionContainer}>
           <Title style={styles.titleOptions}>
-            <Icon name="moon" size={25} color={colors.placeholder} />
+            <Icon name={isThemeDark ? 'sun-o' : 'moon-o'} size={25} />
             {'  '}
-            {t('Dark mode')}
+            {isThemeDark ? t('Light mode') : t('Dark mode')}
           </Title>
           <Switch
             color={colors.warning}
@@ -185,13 +176,33 @@ const ProfileScreen = ({t, theme}: any) => {
           />
         </View>
         <Divider />
+        <TouchableOpacity
+          style={styles.optionContainer}
+          onPress={() => navigation.navigate('About')}>
+          <Title style={styles.titleOptions}>
+            <Icon
+              name="question-circle-o"
+              size={25}
+              color={colors.placeholder}
+            />
+            {'  '}
+            {t('About')}
+          </Title>
+          <Icon
+            color={colors.warning}
+            style={styles.iconOptions}
+            name="chevron-right"
+            size={20}
+          />
+        </TouchableOpacity>
+        <Divider />
         <TouchableOpacity style={styles.optionContainer} onPress={handleLogout}>
           <Title style={styles.titleOptions}>
-            <Icon name="remove-user" size={25} color={colors.placeholder} />
+            <Icon name="user-times" size={25} color={colors.placeholder} />
             {'  '}
             {t('Logout')}
           </Title>
-          <Icon name="log-out" size={25} color={colors.warning} />
+          <Icon name="power-off" size={25} color={colors.warning} />
         </TouchableOpacity>
       </View>
       <RBSheet
@@ -224,9 +235,7 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === 'ios' ? 40 : 30,
     paddingHorizontal: 20,
   },
-  optionView: {
-    marginBottom: 40,
-  },
+
   modal: {
     marginHorizontal: 10,
   },

@@ -69,7 +69,7 @@
     "Cash on delivery": "Cash on delivery",
     "Credit Card": "Credit Card",
     "Paypal": "Paypal",
-    "Thank you for your order. Have a nice day !": "Thank you for your order. Have a nice day !",
+    "Thank you for your order. Good recovery !": "Thank you for your order. Good recovery !",
     "Ordered items": "Ordered items",
     "Amount": "Amount",
     "Qte": "Qte",
@@ -92,6 +92,7 @@
     "House": "House",
     "Office": "Office",
     "Dark mode": "Dark mode",
+    "Light mode": "Light mode",
     "Language": "Language",
     "Logout": "Logout",
     "Privacy": "Privacy",
@@ -102,5 +103,6 @@
     "Go shopping": "Go shopping",
     "There is no user record with these identifiers": "There is no user record with these identifiers",
     "The password or email is invalid": "The password or email is invalid",
-    "Do you want to apply this change": "Do you want to apply this change"
+    "Do you want to apply this change": "Do you want to apply this change",
+    "Shipping address": "Shipping address"
 }
