@@ -78,10 +78,7 @@ const ShippingScreen = ({t, theme}: any) => {
     const getAddress = async () => {
       const res = await getMyAddress(user?.uid);
       if (res?.length) {
-        setAddress([
-          ...res.filter(item => item.id === user?.uid),
-          ...address.filter(item => item.id === user?.id),
-        ]);
+        setAddress(res.filter(item => item.id === user?.uid));
       }
     };
     getAddress();

@@ -1,83 +1,87 @@
-import React from 'react';
-import {Text, StyleSheet, Alert, Platform, View, Pressable} from 'react-native';
-import {useTheme, Card, Caption} from 'react-native-paper';
-import Icon from 'react-native-vector-icons/AntDesign';
+import React, {useContext} from 'react';
+import {useTranslation} from 'react-i18next';
+import {
+  Text,
+  StyleSheet,
+  SafeAreaView,
+  View,
+  TouchableOpacity,
+} from 'react-native';
+import {useTheme, Title, Badge} from 'react-native-paper';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {UserContext} from '../context';
 
-const Item = ({item}) => {
+const Item = ({item}: any) => {
   const {colors} = useTheme();
-
-  const onPressFunction = () => {
-    Alert.alert('What do you want', 'select one of these options', [
-      {
-        text: 'Select as default address',
-        onPress: () => {},
-      },
-      {
-        text: 'Delete address',
-        onPress: () => console.log('address deleted'),
-      },
-      {
-        text: 'Cancel',
-        onPress: () => console.log('Cancel Pressed'),
-        style: 'cancel',
-      },
-      {text: 'OK', onPress: () => console.log('OK Pressed')},
-    ]);
-  };
-
+  const {user}: any = useContext(UserContext);
+  const {t} = useTranslation();
   return (
-    <Pressable
-      onLongPress={onPressFunction}
-      style={styles.cardAddressContainer}>
-      <Card
-        style={[
-          styles.cardAddres,
-          {borderColor: item.default ? colors.warning : colors.surface},
-        ]}>
-        <Card.Content style={styles.cardContent}>
-          {item.defaultAddress ? (
-            <Icon name="checkcircle" color={colors.warning} size={25} />
-          ) : null}
-          <View>
-            <Text style={[styles.addressRoad, {color: colors.placeholder}]}>
-              {item.district}
-            </Text>
-            <Caption style={styles.addressCity}>{item.city}</Caption>
+    <SafeAreaView>
+      <View style={styles.cardAddressContainer}>
+        {item.defaultAddress ? <Badge size={25}>{t('Default')}</Badge> : null}
+        <View style={styles.userDetailContainer}>
+          <Icon
+            name="map-marker-radius-outline"
+            size={45}
+            color={colors.primary}
+            style={styles.icon}
+          />
+          <View style={styles.userDetail}>
+            <Title>{user?.fullName}</Title>
+            <Text>{user?.phoneNumber}</Text>
+
+            <View style={styles.address}>
+              <Text style={styles.neighborhood}>{item?.neighborhood}</Text>
+              <Text style={styles.neighborhood}>
+                {item?.city}, {item?.district},{' '}
+                {`${item?.code_country}`.toUpperCase()}
+              </Text>
+            </View>
           </View>
-        </Card.Content>
-      </Card>
-    </Pressable>
+        </View>
+        <TouchableOpacity style={styles.editBtn} onPress={() => ''}>
+          <Icon
+            name="pencil"
+            size={25}
+            color={colors.primary}
+            style={styles.icon}
+          />
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
   );
 };
 
-const RenderShippingAddress = ({item}) => {
+const RenderShippingAddress = ({item}: any) => {
   return <Item item={item} />;
 };
 
 const styles = StyleSheet.create({
   cardAddressContainer: {
-    marginHorizontal: 13,
-    paddingHorizontal: 5,
-    paddingTop: Platform.OS === 'ios' ? 20 : 10,
+    marginHorizontal: 12,
+    backgroundColor: '#ffffff',
+    marginVertical: 10,
+    padding: 10,
   },
-  cardAddres: {
-    borderRadius: 40,
-    borderWidth: 2,
-    elevation: 3,
-    justifyContent: 'center',
-    alignItems: 'center',
+  address: {
+    marginTop: 5,
   },
-  cardContent: {
+  userDetailContainer: {
     flexDirection: 'row',
-    alignItems: 'center',
   },
-  addressRoad: {
-    fontSize: 25,
-    fontWeight: 'bold',
+  icon: {
+    alignSelf: 'flex-start',
   },
-  addressCity: {
+  userDetail: {
+    marginLeft: 15,
+  },
+  editBtn: {
+    alignSelf: 'flex-end',
+  },
+  neighborhood: {
     fontWeight: 'bold',
-    fontSize: 15,
+    fontSize: 14,
+    paddingVertical: 5,
   },
 });
 

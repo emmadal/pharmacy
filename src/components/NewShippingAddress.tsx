@@ -1,16 +1,19 @@
 import React, {useState, useEffect, useContext, useCallback} from 'react';
-import {View, StyleSheet, Text, LogBox, Alert} from 'react-native';
+import {View, StyleSheet, Text, LogBox, Alert, ScrollView} from 'react-native';
 import {TextInput, withTheme, Button, Switch} from 'react-native-paper';
 import Geolocation from 'react-native-geolocation-service';
 import {withTranslation} from 'react-i18next';
 import {UserContext} from '../context';
 import {AddressContext} from '../context';
-import {addNewAddress, getMyAddress} from '../api';
+import {addNewAddress, getMyAddress, reverseGeocoding} from '../api';
 
 const NewShippingAddress = ({t, theme}: any) => {
-  const [district, setDistrict] = useState('');
+  const [neighborhood, setNeighborhood] = useState('');
   const [loading, setLoading] = useState(false);
   const [city, setCity] = useState('');
+  const [district, setDistrict] = useState('');
+  const [country, setCountry] = useState('');
+  const [codecountry, setCodeCountry] = useState('');
   const [coords, setCoords] = useState({lat: 0, lng: 0, timestamp: 0});
   const [isSwitchOn, setIsSwitchOn] = useState(false);
   const {user}: any = useContext(UserContext);
@@ -28,7 +31,16 @@ const NewShippingAddress = ({t, theme}: any) => {
         enableHighAccuracy: false,
       };
       Geolocation.getCurrentPosition(
-        position => {
+        async position => {
+          const r = await reverseGeocoding(
+            position.coords.latitude,
+            position.coords.longitude,
+          );
+          const obj = JSON.parse(r);
+          setCountry(obj.address.country);
+          setCity(obj.address.city);
+          setDistrict(obj.address.state);
+          setCodeCountry(obj.address.country_code);
           setCoords({
             lat: position.coords.latitude,
             lng: position.coords.longitude,
@@ -56,6 +68,9 @@ const NewShippingAddress = ({t, theme}: any) => {
         id: user?.uid,
         district,
         city,
+        country,
+        code_country: codecountry,
+        neighborhood,
         defaultAddress: isSwitchOn,
         latitude: coords.lat,
         longitude: coords.lng,
@@ -79,8 +94,7 @@ const NewShippingAddress = ({t, theme}: any) => {
             setAddress(r.filter(item => item.id === user?.uid));
           }
           setLoading(false);
-          setCity('');
-          setDistrict('');
+          setNeighborhood('');
           setIsSwitchOn(false);
           return;
         }
@@ -94,24 +108,42 @@ const NewShippingAddress = ({t, theme}: any) => {
   const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.form}>
         <TextInput
           style={[styles.input]}
           autoCapitalize="none"
           mode="outlined"
-          value={district}
-          label={t('District')}
-          onChangeText={text => setDistrict(text)}
+          value={neighborhood}
+          label={t('Neighborhood')}
+          onChangeText={text => setNeighborhood(text)}
           right={<TextInput.Icon name="map-pin" color={colors.primary} />}
         />
         <TextInput
           style={styles.input}
+          disabled
           autoCapitalize="none"
           mode="outlined"
-          onChangeText={text => setCity(text)}
           value={city}
           label={t('City')}
+          right={<TextInput.Icon name="map-o" color={colors.primary} />}
+        />
+        <TextInput
+          style={styles.input}
+          disabled
+          autoCapitalize="none"
+          mode="outlined"
+          value={district}
+          label={t('District')}
+          right={<TextInput.Icon name="map-o" color={colors.primary} />}
+        />
+        <TextInput
+          style={styles.input}
+          disabled
+          autoCapitalize="none"
+          mode="outlined"
+          value={country}
+          label={t('Country')}
           right={<TextInput.Icon name="map-o" color={colors.primary} />}
         />
         <View style={styles.deliveryChoice}>
@@ -136,7 +168,7 @@ const NewShippingAddress = ({t, theme}: any) => {
           {t('Save Address')}
         </Button>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
