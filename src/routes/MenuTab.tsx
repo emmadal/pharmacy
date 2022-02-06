@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/Entypo';
 import HomeScreen from '../screens/HomeScreen';
 import OrderScreen from '../screens/OrderScreen';
 import ProfileStack from './ProfileStack';
+import {Platform} from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
@@ -14,7 +15,10 @@ const MenuTab = ({t, theme}: any) => {
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarStyle: {borderColor: 'transparent', height: 100},
+        tabBarStyle: {
+          borderColor: 'transparent',
+          height: Platform.OS === 'ios' ? 77 : 55,
+        },
       }}>
       <Tab.Screen
         name="Home"
@@ -22,13 +26,13 @@ const MenuTab = ({t, theme}: any) => {
         options={{
           title: t('Home'),
           tabBarLabelStyle: {
-            fontSize: 18,
+            fontSize: 16,
             fontFamily: 'ProductSans-Bold',
           },
           tabBarIcon: ({focused}) => (
             <Icon
               name="home"
-              size={25}
+              size={20}
               color={focused ? colors.primary : colors.placeholder}
             />
           ),
@@ -42,13 +46,13 @@ const MenuTab = ({t, theme}: any) => {
         options={{
           title: t('Orders'),
           tabBarLabelStyle: {
-            fontSize: 18,
+            fontSize: 16,
             fontFamily: 'ProductSans-Bold',
           },
           tabBarIcon: ({focused}) => (
             <Icon
               name="shopping-cart"
-              size={25}
+              size={20}
               color={focused ? colors.primary : colors.placeholder}
             />
           ),
@@ -62,13 +66,13 @@ const MenuTab = ({t, theme}: any) => {
         options={{
           headerShown: false,
           tabBarLabelStyle: {
-            fontSize: 18,
+            fontSize: 16,
             fontFamily: 'ProductSans-Bold',
           },
           tabBarIcon: ({focused}) => (
             <Icon
               name="user"
-              size={25}
+              size={20}
               color={focused ? colors.primary : colors.placeholder}
             />
           ),

@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {StyleSheet, TouchableOpacity} from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {withTheme, Title, Portal, Modal} from 'react-native-paper';
-import Icon from 'react-native-vector-icons/Fontisto';
+import Icon from 'react-native-vector-icons/AntDesign';
 import {withTranslation} from 'react-i18next';
 import {LocaleContext} from '../context';
 
@@ -36,7 +36,7 @@ const LanguageModal = ({t, theme, isModal, setIsModal}: any) => {
         <TouchableOpacity
           onPress={() => setIsModal(!isModal)}
           style={styles.closeIcon}>
-          <Icon name="close-a" size={20} color={colors.black} />
+          <Icon name="close" size={25} color={colors.black} />
         </TouchableOpacity>
         <Title>{t('Please choose your language')}</Title>
         <DropDownPicker
