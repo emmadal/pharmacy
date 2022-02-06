@@ -9,7 +9,12 @@ import SplashScreen from 'react-native-splash-screen';
 import MenuTab from './src/routes/MenuTab';
 import OnboardingStack from './src/routes/OnboardingStack';
 import {LightTheme, DarkTheme} from './src/themes';
-import {UserContext, ThemeContext, LocaleContext} from './src/context';
+import {
+  UserContext,
+  ThemeContext,
+  LocaleContext,
+  AddressContext,
+} from './src/context';
 import {getProfile} from './src/api';
 
 LogBox.ignoreLogs([
@@ -20,6 +25,7 @@ const App = () => {
   const [isThemeDark, setIsThemeDark] = useState(false);
   const [locale, setLocale] = useState();
   const [user, setUser] = useState();
+  const [address, setAddress] = useState();
 
   useEffect(() => {
     AsyncStorage.getItem('@locale').then((value: any) => {
@@ -82,7 +88,9 @@ const App = () => {
         <LocaleContext.Provider value={{locale, setLocale}}>
           <NavigationContainer theme={theme}>
             <UserContext.Provider value={{setUser, user}}>
-              {!user ? <OnboardingStack /> : <MenuTab />}
+              <AddressContext.Provider value={{setAddress, address}}>
+                {!user ? <OnboardingStack /> : <MenuTab />}
+              </AddressContext.Provider>
             </UserContext.Provider>
           </NavigationContainer>
         </LocaleContext.Provider>

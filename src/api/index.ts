@@ -85,3 +85,25 @@ export const uploadFile = async (data: any) => {
     return url;
   }
 };
+
+export const addNewAddress = async (uid: string, params: any) => {
+  await db
+    .collection('address')
+    .doc(uid)
+    .collection('all')
+    .doc(`${new Date().getTime()}`)
+    .set(params);
+  return await getMyAddress(uid);
+};
+
+export const getMyAddress = async (uid: string) => {
+  const address = await db
+    .collection('address')
+    .doc(uid)
+    .collection('all')
+    .orderBy('timestamp', 'desc')
+    .get();
+  if (address.docs) {
+    return address.docs.map(doc => doc.data());
+  }
+};

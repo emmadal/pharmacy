@@ -39,6 +39,12 @@
 	<string/>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Allow $(PRODUCT_NAME) to acces your Photos library</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Allow $(PRODUCT_NAME) to update your location in background</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Allow $(PRODUCT_NAME) to get your location</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Allow $(PRODUCT_NAME) to get your location</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>ProductSans-Bold.ttf</string>

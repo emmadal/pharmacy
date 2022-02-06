@@ -11,6 +11,7 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		47BC28BA27AF222800C5C737 /* location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BC28B927AF222800C5C737 /* location.swift */; };
 		47BFC19527A59916004C9641 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 47BFC19427A59916004C9641 /* GoogleService-Info.plist */; };
 		49D2FDF7BCB6441184AF8A0C /* ProductSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 237C6F283C0A4E55B0360A4F /* ProductSans-Light.ttf */; };
 		6172F2D35A4C3AA820D92908 /* libPods-Pharmacy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6423831EA8574132BED9D8CC /* libPods-Pharmacy.a */; };
@@ -48,6 +49,8 @@
 		237C6F283C0A4E55B0360A4F /* ProductSans-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "ProductSans-Light.ttf"; path = "../src/assets/fonts/ProductSans-Light.ttf"; sourceTree = "<group>"; };
 		23B75C6494A84245A8DFA04F /* ProductSans-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "ProductSans-Medium.ttf"; path = "../src/assets/fonts/ProductSans-Medium.ttf"; sourceTree = "<group>"; };
 		4480F643373D4939B137F9DE /* ProductSans-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "ProductSans-BoldItalic.ttf"; path = "../src/assets/fonts/ProductSans-BoldItalic.ttf"; sourceTree = "<group>"; };
+		47BC28B827AF222700C5C737 /* Pharmacy-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pharmacy-Bridging-Header.h"; sourceTree = "<group>"; };
+		47BC28B927AF222800C5C737 /* location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = location.swift; sourceTree = "<group>"; };
 		47BFC19427A59916004C9641 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4808FBD3BC184929A4DE77A3 /* ProductSans-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "ProductSans-Black.ttf"; path = "../src/assets/fonts/ProductSans-Black.ttf"; sourceTree = "<group>"; };
 		6423831EA8574132BED9D8CC /* libPods-Pharmacy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Pharmacy.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -154,6 +157,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				47BC28B927AF222800C5C737 /* location.swift */,
 				47BFC19427A59916004C9641 /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* Pharmacy */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -162,6 +166,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				E233CBF5F47BEE60B243DCF8 /* Pods */,
 				57B0B0B88E2F4E449BFFB4DA /* Resources */,
+				47BC28B827AF222700C5C737 /* Pharmacy-Bridging-Header.h */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -248,7 +253,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1320;
 					};
 				};
 			};
@@ -470,6 +475,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47BC28BA27AF222800C5C737 /* location.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
@@ -490,6 +496,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6C97AB639B58BBB4B15BBE30 /* Pods-Pharmacy-PharmacyTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -517,6 +524,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1D0AE47A65C8663E3B452821 /* Pods-Pharmacy-PharmacyTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = PharmacyTests/Info.plist;
@@ -557,6 +565,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.Pharmacy;
 				PRODUCT_NAME = Pharmacy;
+				SWIFT_OBJC_BRIDGING_HEADER = "Pharmacy-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -582,6 +591,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.Pharmacy;
 				PRODUCT_NAME = Pharmacy;
+				SWIFT_OBJC_BRIDGING_HEADER = "Pharmacy-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

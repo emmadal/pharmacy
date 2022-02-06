@@ -106,5 +106,11 @@
     "Go shopping": "Faire des achats",
     "There is no user record with these identifiers": "Il n'y a pas d'enregistrement d'utilisateur avec ces identifiants",
     "The password or email is invalid": "Le mot de passe ou l'e-mail est invalide",
-    "Do you want to apply this change": "Voulez-vous appliquer ce changement"
+    "Do you want to apply this change": "Voulez-vous appliquer ce changement",
+    "Pharmacy App request to access to your location": "L'application Pharmacy demande à accéder à votre emplacement",
+    "Ask Me Later": "Me le demander plutard",
+    "OK": "OK",
+    "You don't have rights to access your location": "Vous n'avez pas le droit d'accéder à votre position",
+    "You can use the location": "Vous pouvez utiliser la localisation",
+    "A another main address is already added. Please deactivate it and add this new address like main address": "Une autre adresse principale est déjà ajoutée. Veuillez la désactiver et ajouter cette nouvelle adresse comme adresse principale"
 }
