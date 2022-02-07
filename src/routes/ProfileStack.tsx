@@ -5,6 +5,7 @@ import {withTheme} from 'react-native-paper';
 import ProfileScreen from '../screens/ProfileScreen';
 import AboutScreen from '../screens/AboutScreen';
 import ShippingScreen from '../screens/ShippingScreen';
+import NewShippingScreen from '../screens/NewShippingScreen';
 import OrderHistoryScreen from '../screens/OrderHistoryScreen';
 
 const Stack = createNativeStackNavigator();
@@ -32,6 +33,14 @@ const ProfileStack = ({t}: any) => {
         component={ShippingScreen}
         options={{
           headerTitle: t('Shipping Address'),
+          headerBackTitle: t('Back'),
+        }}
+      />
+      <Stack.Screen
+        name="NewShipping"
+        component={NewShippingScreen}
+        options={{
+          headerTitle: t('Add a new address'),
           headerBackTitle: t('Back'),
         }}
       />

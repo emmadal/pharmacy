@@ -1,26 +1,27 @@
 import React, {useState, useEffect, useContext, useCallback} from 'react';
-import {View, StyleSheet, Text, LogBox, Alert, ScrollView} from 'react-native';
+import {View, StyleSheet, Text, LogBox, Alert} from 'react-native';
 import {TextInput, withTheme, Button, Switch} from 'react-native-paper';
 import Geolocation from 'react-native-geolocation-service';
 import {withTranslation} from 'react-i18next';
-import {UserContext} from '../context';
-import {AddressContext} from '../context';
+import {UserContext, AddressContext} from '../context';
 import {addNewAddress, getMyAddress, reverseGeocoding} from '../api';
 
-const NewShippingAddress = ({t, theme}: any) => {
+LogBox.ignoreLogs(['Sending...']);
+
+const NewShippingScreen = ({t, theme}: any) => {
   const [neighborhood, setNeighborhood] = useState('');
   const [loading, setLoading] = useState(false);
   const [city, setCity] = useState('');
   const [district, setDistrict] = useState('');
+  const [postalcode, setPostalCode] = useState('');
   const [country, setCountry] = useState('');
   const [codecountry, setCodeCountry] = useState('');
   const [coords, setCoords] = useState({lat: 0, lng: 0, timestamp: 0});
+  const [btnview, setBtnView] = useState(true);
   const [isSwitchOn, setIsSwitchOn] = useState(false);
   const {user}: any = useContext(UserContext);
   const {setAddress}: any = useContext(AddressContext);
   const {colors} = theme;
-
-  LogBox.ignoreLogs(['Sending...']);
 
   // get Current position with longitude and latitude
   const getCurrentPosition = useCallback(() => {
@@ -70,6 +71,7 @@ const NewShippingAddress = ({t, theme}: any) => {
         city,
         country,
         code_country: codecountry,
+        postal_code: postalcode,
         neighborhood,
         defaultAddress: isSwitchOn,
         latitude: coords.lat,
@@ -95,6 +97,7 @@ const NewShippingAddress = ({t, theme}: any) => {
           }
           setLoading(false);
           setNeighborhood('');
+          setPostalCode('');
           setIsSwitchOn(false);
           return;
         }
@@ -105,76 +108,106 @@ const NewShippingAddress = ({t, theme}: any) => {
     }
   };
 
+  const fieldChecking = useCallback(() => {
+    if (
+      neighborhood.length >= 10 &&
+      neighborhood.trim() &&
+      (city.length && country.length && district.length) > 0
+    ) {
+      setBtnView(false);
+    } else {
+      setBtnView(true);
+    }
+  }, [city.length, country.length, district.length, neighborhood]);
+
+  useEffect(() => fieldChecking(), [fieldChecking]);
+
   const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.form}>
-        <TextInput
-          style={[styles.input]}
-          autoCapitalize="none"
-          mode="outlined"
-          value={neighborhood}
-          label={t('Neighborhood')}
-          onChangeText={text => setNeighborhood(text)}
-          right={<TextInput.Icon name="map-pin" color={colors.primary} />}
+    <View style={styles.form}>
+      <TextInput
+        style={styles.input}
+        disabled
+        mode="outlined"
+        value={user?.fullName}
+        label={t('Full Name')}
+      />
+      <TextInput
+        style={styles.input}
+        disabled
+        mode="outlined"
+        value={user?.phoneNumber}
+        label={t('Phone number')}
+      />
+      <TextInput
+        style={[styles.input]}
+        autoCapitalize="none"
+        mode="outlined"
+        value={neighborhood}
+        label={t('Neighborhood')}
+        onChangeText={text => setNeighborhood(text)}
+      />
+      <TextInput
+        style={[styles.input]}
+        autoCapitalize="none"
+        mode="outlined"
+        value={postalcode}
+        label={t('Postal code')}
+        onChangeText={text => setPostalCode(text)}
+      />
+      <TextInput
+        style={styles.input}
+        disabled
+        autoCapitalize="none"
+        mode="outlined"
+        value={city}
+        label={t('City')}
+      />
+      <TextInput
+        style={styles.input}
+        disabled
+        autoCapitalize="none"
+        mode="outlined"
+        value={district}
+        label={t('District')}
+      />
+      <TextInput
+        style={styles.input}
+        disabled
+        autoCapitalize="none"
+        mode="outlined"
+        value={country}
+        label={t('Country')}
+      />
+      <View style={styles.deliveryChoice}>
+        <Switch
+          value={isSwitchOn}
+          onValueChange={onToggleSwitch}
+          color={colors.warning}
         />
-        <TextInput
-          style={styles.input}
-          disabled
-          autoCapitalize="none"
-          mode="outlined"
-          value={city}
-          label={t('City')}
-          right={<TextInput.Icon name="map-o" color={colors.primary} />}
-        />
-        <TextInput
-          style={styles.input}
-          disabled
-          autoCapitalize="none"
-          mode="outlined"
-          value={district}
-          label={t('District')}
-          right={<TextInput.Icon name="map-o" color={colors.primary} />}
-        />
-        <TextInput
-          style={styles.input}
-          disabled
-          autoCapitalize="none"
-          mode="outlined"
-          value={country}
-          label={t('Country')}
-          right={<TextInput.Icon name="map-o" color={colors.primary} />}
-        />
-        <View style={styles.deliveryChoice}>
-          <Switch
-            value={isSwitchOn}
-            style={styles.switchChoice}
-            onValueChange={onToggleSwitch}
-            color={colors.warning}
-          />
-          <Text style={styles.deliverChoice}>
-            {t('Define as main delivery address')}
-          </Text>
-        </View>
-        <Button
-          disabled={city.length && district.length > 5 ? false : true}
-          labelStyle={{color: colors.white}}
-          loading={loading}
-          onPress={handleSubmit}
-          style={styles.btn}
-          mode="contained"
-          theme={{roundness: 20}}>
-          {t('Save Address')}
-        </Button>
+        <Text style={styles.deliverChoice}>
+          {t('Define as main delivery address')}
+        </Text>
       </View>
-    </ScrollView>
+      <Button
+        disabled={btnview}
+        labelStyle={{color: colors.white}}
+        loading={loading}
+        onPress={handleSubmit}
+        style={styles.btn}
+        mode="contained"
+        theme={{roundness: 20}}>
+        {t('Save Address')}
+      </Button>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 10,
+    flex: 1,
+    paddingHorizontal: 5,
   },
   form: {
     marginHorizontal: 25,
@@ -182,12 +215,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   input: {
-    marginVertical: 10,
+    marginVertical: 8,
   },
   btn: {
     padding: 4,
     justifyContent: 'center',
-    alignSelf: 'center',
     marginVertical: 10,
   },
   deliveryChoice: {
@@ -200,4 +232,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withTranslation()(withTheme(NewShippingAddress));
+export default withTranslation()(withTheme(NewShippingScreen));

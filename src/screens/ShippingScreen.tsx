@@ -1,20 +1,17 @@
-import React, {useRef, useContext, useEffect, useCallback} from 'react';
+import React, {useContext, useEffect, useCallback} from 'react';
 import {
   StyleSheet,
   Platform,
   SafeAreaView,
-  ScrollView,
   FlatList,
   LogBox,
   PermissionsAndroid,
   Alert,
 } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
-import RBSheet from 'react-native-raw-bottom-sheet';
 import {withTheme, FAB} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
 import {withTranslation} from 'react-i18next';
-import NewShippingAddress from '../components/NewShippingAddress';
 import RenderShippingAddress from '../components/RenderShippingAddress';
 import EmptyAddress from '../components/EmptyAddress';
 import {UserContext, AddressContext} from '../context';
@@ -22,8 +19,7 @@ import {getMyAddress} from '../api';
 
 LogBox.ignoreLogs(['Sending...']);
 
-const ShippingScreen = ({t, theme}: any) => {
-  const refRBSheet = useRef();
+const ShippingScreen = ({t, theme, navigation}: any) => {
   const {user}: any = useContext(UserContext);
   const {address, setAddress}: any = useContext(AddressContext);
   const {goBack} = useNavigation();
@@ -97,34 +93,14 @@ const ShippingScreen = ({t, theme}: any) => {
       ) : (
         <EmptyAddress />
       )}
-      <RBSheet
-        animationType="slide"
-        height={350}
-        ref={refRBSheet}
-        closeOnDragDown={true}
-        closeOnPressMask={true}
-        customStyles={{
-          wrapper: {
-            backgroundColor: 'transparent',
-          },
-          draggableIcon: {
-            backgroundColor: '#000',
-          },
-        }}>
-        <ScrollView
-          showsHorizontalScrollIndicator={false}
-          showsVerticalScrollIndicator={false}>
-          <NewShippingAddress />
-        </ScrollView>
-      </RBSheet>
       <FAB
         color={colors.white}
         style={[styles.fab, {backgroundColor: colors.primary}]}
         uppercase={false}
         label={t('Add a new address')}
         small
-        icon="home"
-        onPress={() => refRBSheet.current.open()}
+        icon="plus"
+        onPress={() => navigation.navigate('NewShipping')}
       />
     </SafeAreaView>
   );
@@ -138,7 +114,7 @@ const styles = StyleSheet.create({
   },
   fab: {
     position: 'absolute',
-    margin: 50,
+    margin: 30,
     right: 0,
     bottom: 0,
   },
