@@ -66,6 +66,7 @@
     "Orders history": "Historique des commandes",
     "Payment methods": "Méthodes de paiement",
     "Shipping address": "Adresse de livraison",
+    "Edit Shipping Address": "Modifier l'adresse de livraison",
     "Settings": "Paramètres",
     "Support center": "Centre d'assistance",
     "Back": "Retour",
@@ -88,6 +89,7 @@
     "Address": "Adresse",
     "Postal code": "Code postal",
     "Save Address": "Enregistrer l'addresse",
+    "Update Address": "Modifier l'adresse",
     "House or Office": "Maison ou Bureau",
     "House": "Maison",
     "Office": "Bureau",
@@ -112,5 +114,6 @@
     "OK": "OK",
     "You don't have rights to access your location": "Vous n'avez pas le droit d'accéder à votre position",
     "You can use the location": "Vous pouvez utiliser la localisation",
-    "A another main address is already added. Please deactivate it and add this new address like main address": "Une autre adresse principale est déjà ajoutée. Veuillez la désactiver et ajouter cette nouvelle adresse comme adresse principale"
+    "A another main address is already added. Please deactivate it and add this new address like main address": "Une autre adresse principale est déjà ajoutée. Veuillez la désactiver et ajouter cette nouvelle adresse comme adresse principale",
+    "A another main address is already exist. Please deactivate it and edit this address like main address": "Une autre adresse principale existe déjà. Veuillez la désactiver et modifier cette adresse comme adresse principale"
 }

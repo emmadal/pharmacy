@@ -7,6 +7,7 @@ import {
   View,
   TouchableOpacity,
 } from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 import {useTheme, Title, Badge} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {UserContext} from '../context';
@@ -15,10 +16,16 @@ const Item = ({item}: any) => {
   const {colors} = useTheme();
   const {user}: any = useContext(UserContext);
   const {t} = useTranslation();
+  const navigation = useNavigation();
+
   return (
     <SafeAreaView>
       <View style={styles.cardAddressContainer}>
-        {item.defaultAddress ? <Badge size={25}>{t('Default')}</Badge> : null}
+        {item.defaultAddress ? (
+          <Badge style={styles.badge} size={25}>
+            {t('Default')}
+          </Badge>
+        ) : null}
         <View style={styles.userDetailContainer}>
           <Icon
             name="map-marker-radius-outline"
@@ -27,19 +34,21 @@ const Item = ({item}: any) => {
             style={styles.icon}
           />
           <View style={styles.userDetail}>
-            <Title>{user?.fullName}</Title>
-            <Text>{user?.phoneNumber}</Text>
+            <Title style={styles.userDetailName}>{user?.fullName}</Title>
+            <Text style={styles.userDetailName}>{user?.phoneNumber}</Text>
 
             <View style={styles.address}>
               <Text style={styles.neighborhood}>{item?.neighborhood}</Text>
               <Text style={styles.neighborhood}>
                 {item?.city}, {item?.district},{' '}
-                {`${item?.code_country}`.toUpperCase()}
+                {`${item?.codecountry}`.toUpperCase()}
               </Text>
             </View>
           </View>
         </View>
-        <TouchableOpacity style={styles.editBtn} onPress={() => ''}>
+        <TouchableOpacity
+          style={styles.editBtn}
+          onPress={() => navigation.navigate('UpdateShipping', {item})}>
           <Icon
             name="pencil"
             size={25}
@@ -73,15 +82,21 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
   },
   userDetail: {
-    marginLeft: 15,
+    marginLeft: 7,
+  },
+  userDetailName: {
+    fontFamily: 'ProductSans-Light',
   },
   editBtn: {
     alignSelf: 'flex-end',
   },
   neighborhood: {
-    fontWeight: 'bold',
-    fontSize: 14,
+    fontFamily: 'ProductSans-Bold',
+    fontSize: 15,
     paddingVertical: 5,
+  },
+  badge: {
+    fontFamily: 'ProductSans-Bold',
   },
 });
 

@@ -6,6 +6,7 @@ import ProfileScreen from '../screens/ProfileScreen';
 import AboutScreen from '../screens/AboutScreen';
 import ShippingScreen from '../screens/ShippingScreen';
 import NewShippingScreen from '../screens/NewShippingScreen';
+import UpdateShippingScreen from '../screens/UpdateShippingScreen';
 import OrderHistoryScreen from '../screens/OrderHistoryScreen';
 
 const Stack = createNativeStackNavigator();
@@ -41,6 +42,14 @@ const ProfileStack = ({t}: any) => {
         component={NewShippingScreen}
         options={{
           headerTitle: t('Add a new address'),
+          headerBackTitle: t('Back'),
+        }}
+      />
+      <Stack.Screen
+        name="UpdateShipping"
+        component={UpdateShippingScreen}
+        options={{
+          headerTitle: t('Edit Shipping Address'),
           headerBackTitle: t('Back'),
         }}
       />

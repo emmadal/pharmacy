@@ -74,7 +74,7 @@ const ShippingScreen = ({t, theme, navigation}: any) => {
     const getAddress = async () => {
       const res = await getMyAddress(user?.uid);
       if (res?.length) {
-        setAddress(res.filter(item => item.id === user?.uid));
+        setAddress(res.filter(item => item.userId === user?.uid));
       }
     };
     getAddress();
@@ -86,7 +86,7 @@ const ShippingScreen = ({t, theme, navigation}: any) => {
         <FlatList
           data={address}
           renderItem={RenderShippingAddress}
-          keyExtractor={item => item.timestamp}
+          keyExtractor={item => item.id}
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
         />

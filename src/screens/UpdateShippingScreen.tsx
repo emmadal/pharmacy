@@ -1,29 +1,36 @@
 import React, {useState, useEffect, useContext, useCallback} from 'react';
-import {View, StyleSheet, Text, LogBox, Alert} from 'react-native';
-import {TextInput, withTheme, Button, Switch} from 'react-native-paper';
+import {
+  View,
+  StyleSheet,
+  Text,
+  LogBox,
+  Alert,
+  TouchableOpacity,
+} from 'react-native';
+import {TextInput, withTheme, Switch} from 'react-native-paper';
 import Geolocation from 'react-native-geolocation-service';
+import {useNavigation} from '@react-navigation/native';
 import {withTranslation} from 'react-i18next';
 import {UserContext, AddressContext} from '../context';
-import {addNewAddress, getMyAddress, reverseGeocoding} from '../api';
-import {useNavigation} from '@react-navigation/native';
+import {updateAddress, getMyAddress, reverseGeocoding} from '../api';
 
 LogBox.ignoreLogs(['Sending...']);
 
-const NewShippingScreen = ({t, theme}: any) => {
-  const [neighborhood, setNeighborhood] = useState('');
+const UpdateShippingScreen = ({t, theme, route}: any) => {
+  const {item} = route.params;
+  const [neighborhood, setNeighborhood] = useState(item?.neighborhood ?? '');
   const [loading, setLoading] = useState(false);
-  const [city, setCity] = useState('');
-  const [district, setDistrict] = useState('');
-  const [postalcode, setPostalCode] = useState('');
-  const [country, setCountry] = useState('');
-  const [codecountry, setCodeCountry] = useState('');
+  const [city, setCity] = useState(item?.city ?? '');
+  const [district, setDistrict] = useState(item?.district ?? '');
+  const [postalcode, setPostalCode] = useState(item?.postalcode ?? '');
+  const [country, setCountry] = useState(item?.country ?? '');
   const [coords, setCoords] = useState({lat: 0, lng: 0, timestamp: 0});
   const [btnview, setBtnView] = useState(true);
-  const [isSwitchOn, setIsSwitchOn] = useState(false);
+  const [isSwitchOn, setIsSwitchOn] = useState(item?.defaultAddress);
   const {user}: any = useContext(UserContext);
   const {setAddress}: any = useContext(AddressContext);
-  const {colors} = theme;
   const {goBack} = useNavigation();
+  const {colors} = theme;
 
   // get Current position with longitude and latitude
   const getCurrentPosition = useCallback(() => {
@@ -43,7 +50,6 @@ const NewShippingScreen = ({t, theme}: any) => {
           setCountry(obj.address.country);
           setCity(obj.address.city);
           setDistrict(obj.address.state);
-          setCodeCountry(obj.address.country_code);
           setCoords({
             lat: position.coords.latitude,
             lng: position.coords.longitude,
@@ -68,43 +74,36 @@ const NewShippingScreen = ({t, theme}: any) => {
     setLoading(!loading);
     try {
       const param = {
-        id: new Date().getTime(),
-        userId: user?.uid,
         district,
         city,
-        codecountry,
         country,
         postalcode,
         neighborhood,
         defaultAddress: isSwitchOn,
-        createdAt: new Date().toISOString(),
+        updateAt: new Date().toISOString(),
       };
       const res = await getMyAddress(user?.uid);
-      if (res) {
-        const exist = res.some(item => item.defaultAddress === true);
-        if (exist && isSwitchOn) {
+      if (res?.length) {
+        if (!isSwitchOn || isSwitchOn) {
+          setLoading(false);
+          const u = await updateAddress(item?.id, param, item?.userId);
+          if (u?.length) {
+            setAddress(u.filter(x => x.id === item?.id));
+            setLoading(false);
+            goBack();
+          }
+        } else {
           setLoading(false);
           Alert.alert(
             t(
-              'A another main address is already added. Please deactivate it and add this new address like main address',
+              'A another main address is already exist. Please deactivate it and edit this address like main address',
             ),
           );
           return;
-        } else {
-          await addNewAddress(user?.uid, param);
-          const r = await getMyAddress(user?.uid);
-          if (r?.length) {
-            setAddress(r.filter(item => user?.uid === item.userId));
-          }
-          setLoading(false);
-          setNeighborhood('');
-          setPostalCode('');
-          setIsSwitchOn(false);
-          goBack();
-          return;
         }
       }
-    } catch (error) {
+    } catch (err) {
+      console.warn(err.message);
       setLoading(false);
       return;
     }
@@ -192,16 +191,12 @@ const NewShippingScreen = ({t, theme}: any) => {
           {t('Define as main delivery address')}
         </Text>
       </View>
-      <Button
+      <TouchableOpacity
         disabled={btnview}
-        labelStyle={{color: colors.white}}
-        loading={loading}
         onPress={handleSubmit}
-        style={styles.btn}
-        mode="contained"
-        theme={{roundness: 20}}>
-        {t('Save Address')}
-      </Button>
+        style={styles.btn}>
+        <Text style={styles.btnText}>{t('Update Address')}</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -220,18 +215,27 @@ const styles = StyleSheet.create({
     marginVertical: 8,
   },
   btn: {
-    padding: 4,
+    padding: 15,
     justifyContent: 'center',
     marginVertical: 10,
+    borderRadius: 20,
+    backgroundColor: '#44bd32',
+  },
+  btnText: {
+    color: '#ffffff',
+    alignSelf: 'center',
+    fontSize: 17,
+    fontFamily: 'ProductSans-Bold',
   },
   deliveryChoice: {
     flexDirection: 'row',
   },
   deliverChoice: {
     alignSelf: 'center',
-    fontSize: 15,
+    fontSize: 17,
     marginLeft: 15,
+    fontFamily: 'ProductSans-Light',
   },
 });
 
-export default withTranslation()(withTheme(NewShippingScreen));
+export default withTranslation()(withTheme(UpdateShippingScreen));

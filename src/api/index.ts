@@ -91,9 +91,19 @@ export const addNewAddress = async (uid: string, params: any) => {
     .collection('address')
     .doc(uid)
     .collection('all')
-    .doc(`${new Date().getTime()}`)
+    .doc(`${params.id}`)
     .set(params);
   return await getMyAddress(uid);
+};
+
+export const updateAddress = async (id: string, data: any, userId: string) => {
+  await db
+    .collection('address')
+    .doc(userId)
+    .collection('all')
+    .doc(`${id}`)
+    .update({...data});
+  return await getMyAddress(userId);
 };
 
 export const getMyAddress = async (uid: string) => {
@@ -101,7 +111,7 @@ export const getMyAddress = async (uid: string) => {
     .collection('address')
     .doc(uid)
     .collection('all')
-    .orderBy('timestamp', 'desc')
+    .orderBy('id', 'desc')
     .get();
   if (address.docs) {
     return address.docs.map(doc => doc.data());

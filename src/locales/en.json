@@ -89,6 +89,7 @@
     "Address": "Address",
     "Zip code": "Zip code",
     "Save Address": "Save Address",
+    "Update Address": "Update Address",
     "House or Office": "House or Office",
     "House": "House",
     "Office": "Office",
@@ -106,10 +107,12 @@
     "The password or email is invalid": "The password or email is invalid",
     "Do you want to apply this change": "Do you want to apply this change",
     "Shipping address": "Shipping address",
+    "Edit Shipping Address": "Edit Shipping Address",
     "Pharmacy App request to access to your location": "Pharmacy App request to access to your location",
     "Ask Me Later": "Ask Me Later",
     "OK": "OK",
     "You don't have rights to access your location": "You don't have rights to access your location",
     "You can use the location": "You can use the location",
-    "A another main address is already added. Please deactivate it and add this new address like main address": "A another main address is already added. Please deactivate it and add this new address like main address"
+    "A another main address is already added. Please deactivate it and add this new address like main address": "A another main address is already added. Please deactivate it and add this new address like main address",
+    "A another main address is already exist. Please deactivate it and edit this address like main address": "A another main address is already exist. Please deactivate it and edit this address like main address"
 }
