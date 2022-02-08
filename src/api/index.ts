@@ -106,6 +106,16 @@ export const updateAddress = async (id: string, data: any, userId: string) => {
   return await getMyAddress(userId);
 };
 
+export const deleteAddress = async (id: string, data: any, userId: string) => {
+  await db
+    .collection('address')
+    .doc(userId)
+    .collection('all')
+    .doc(`${id}`)
+    .delete();
+  return await getMyAddress(userId);
+};
+
 export const getMyAddress = async (uid: string) => {
   const address = await db
     .collection('address')

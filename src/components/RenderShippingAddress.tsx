@@ -3,9 +3,10 @@ import {useTranslation} from 'react-i18next';
 import {
   Text,
   StyleSheet,
-  SafeAreaView,
+  Alert,
   View,
   TouchableOpacity,
+  Pressable,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useTheme, Title, Badge} from 'react-native-paper';
@@ -19,45 +20,43 @@ const Item = ({item}: any) => {
   const navigation = useNavigation();
 
   return (
-    <SafeAreaView>
-      <View style={styles.cardAddressContainer}>
-        {item.defaultAddress ? (
-          <Badge style={styles.badge} size={25}>
-            {t('Default')}
-          </Badge>
-        ) : null}
-        <View style={styles.userDetailContainer}>
-          <Icon
-            name="map-marker-radius-outline"
-            size={45}
-            color={colors.primary}
-            style={styles.icon}
-          />
-          <View style={styles.userDetail}>
-            <Title style={styles.userDetailName}>{user?.fullName}</Title>
-            <Text style={styles.userDetailName}>{user?.phoneNumber}</Text>
+    <View style={styles.cardAddressContainer}>
+      {item.defaultAddress ? (
+        <Badge style={styles.badge} size={25}>
+          {t('Default')}
+        </Badge>
+      ) : null}
+      <View style={styles.userDetailContainer}>
+        <Icon
+          name="map-marker-radius-outline"
+          size={45}
+          color={colors.primary}
+          style={styles.icon}
+        />
+        <View style={styles.userDetail}>
+          <Title style={styles.userDetailName}>{user?.fullName}</Title>
+          <Text style={styles.userDetailName}>{user?.phoneNumber}</Text>
 
-            <View style={styles.address}>
-              <Text style={styles.neighborhood}>{item?.neighborhood}</Text>
-              <Text style={styles.neighborhood}>
-                {item?.city}, {item?.district},{' '}
-                {`${item?.codecountry}`.toUpperCase()}
-              </Text>
-            </View>
+          <View style={styles.address}>
+            <Text style={styles.neighborhood}>{item?.neighborhood}</Text>
+            <Text style={styles.neighborhood}>
+              {item?.city}, {item?.district},{' '}
+              {`${item?.codecountry}`.toUpperCase()}
+            </Text>
           </View>
         </View>
-        <TouchableOpacity
-          style={styles.editBtn}
-          onPress={() => navigation.navigate('UpdateShipping', {item})}>
-          <Icon
-            name="pencil"
-            size={25}
-            color={colors.primary}
-            style={styles.icon}
-          />
-        </TouchableOpacity>
       </View>
-    </SafeAreaView>
+      <TouchableOpacity
+        style={styles.editBtn}
+        onPress={() => navigation.navigate('UpdateShipping', {item})}>
+        <Icon
+          name="pencil"
+          size={25}
+          color={colors.primary}
+          style={styles.icon}
+        />
+      </TouchableOpacity>
+    </View>
   );
 };
 

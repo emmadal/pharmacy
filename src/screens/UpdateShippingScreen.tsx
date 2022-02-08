@@ -68,7 +68,10 @@ const UpdateShippingScreen = ({t, theme, route}: any) => {
     }
   }, []);
 
-  useEffect(() => getCurrentPosition(), [getCurrentPosition]);
+  useEffect(() => {
+    getCurrentPosition();
+    return () => getCurrentPosition();
+  }, [getCurrentPosition]);
 
   const handleSubmit = async () => {
     setLoading(!loading);

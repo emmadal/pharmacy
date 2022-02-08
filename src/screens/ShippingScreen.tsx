@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useCallback} from 'react';
+import React, {useContext, useEffect, useState, useCallback} from 'react';
 import {
   StyleSheet,
   Platform,
@@ -7,6 +7,7 @@ import {
   LogBox,
   PermissionsAndroid,
   Alert,
+  Pressable,
 } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 import {withTheme, FAB} from 'react-native-paper';
@@ -15,12 +16,14 @@ import {withTranslation} from 'react-i18next';
 import RenderShippingAddress from '../components/RenderShippingAddress';
 import EmptyAddress from '../components/EmptyAddress';
 import {UserContext, AddressContext} from '../context';
-import {getMyAddress} from '../api';
+import {deleteAddress, getMyAddress} from '../api';
+import Loader from '../components/Loader';
 
 LogBox.ignoreLogs(['Sending...']);
 
 const ShippingScreen = ({t, theme, navigation}: any) => {
   const {user}: any = useContext(UserContext);
+  const [loading, setLoading] = useState(false);
   const {address, setAddress}: any = useContext(AddressContext);
   const {goBack} = useNavigation();
   const {colors} = theme;
@@ -80,12 +83,47 @@ const ShippingScreen = ({t, theme, navigation}: any) => {
     getAddress();
   }, [address, setAddress, user?.id, user?.uid]);
 
+  const handleDelete = (e: any) => {
+    Alert.alert(
+      t('Address shipping deleting'),
+      t('Do you want to delete ?'),
+      [
+        {
+          text: t('Yes'),
+          onPress: async () => {
+            setLoading(!loading);
+            const u = await deleteAddress(e?.id, e, e?.userId);
+            if (u?.length === 0) {
+              setLoading(false);
+              setAddress([]);
+              return;
+            } else {
+              setLoading(false);
+              setAddress(u?.filter(x => x.userId === user?.id));
+              return;
+            }
+          },
+        },
+        {
+          text: t('No'),
+          style: 'cancel',
+        },
+      ],
+      {cancelable: false},
+    );
+  };
+
   return (
     <SafeAreaView style={styles.container}>
-      {address ? (
+      <Loader loading={loading} />
+      {address?.length ? (
         <FlatList
           data={address}
-          renderItem={RenderShippingAddress}
+          renderItem={({item}) => (
+            <Pressable onLongPress={() => handleDelete(item)}>
+              <RenderShippingAddress item={item} />
+            </Pressable>
+          )}
           keyExtractor={item => item.id}
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
