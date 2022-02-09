@@ -25,10 +25,11 @@ const styles = StyleSheet.create({
   },
   _title: {
     fontSize: 25,
-    fontWeight: 'bold',
+    fontFamily: 'ProductSans-Bold',
   },
   _paragraph: {
     textAlign: 'center',
+    fontFamily: 'ProductSans-Light',
   },
 });
 
