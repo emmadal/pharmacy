@@ -115,7 +115,9 @@ const ProfileScreen = ({t, theme}: any) => {
             <Card.Content>
               <Icon name="heart" size={25} color={colors.warning} />
               <Title style={styles.cardTitle}>19</Title>
-              <Paragraph>{t('Best pharmacy')}</Paragraph>
+              <Paragraph style={styles.cardParagraph}>
+                {t('Best pharmacy')}
+              </Paragraph>
             </Card.Content>
           </Card>
         </TouchableOpacity>
@@ -124,7 +126,9 @@ const ProfileScreen = ({t, theme}: any) => {
             <Card.Content>
               <Icon name="shopping-cart" size={25} color={colors.warning} />
               <Title style={styles.cardTitle}>19</Title>
-              <Paragraph>{t('Total orders')}</Paragraph>
+              <Paragraph style={styles.cardParagraph}>
+                {t('Total orders')}
+              </Paragraph>
             </Card.Content>
           </Card>
         </TouchableOpacity>
@@ -247,8 +251,8 @@ const styles = StyleSheet.create({
     marginVertical: 17,
   },
   titleOptions: {
-    fontWeight: 'bold',
     fontSize: 20,
+    fontFamily: 'ProductSans-Regular',
   },
   iconOptions: {
     alignSelf: 'center',
@@ -262,8 +266,8 @@ const styles = StyleSheet.create({
     marginVertical: 30,
   },
   cardTitle: {
-    fontWeight: 'bold',
     fontSize: 25,
+    fontFamily: 'ProductSans-Bold',
   },
   profileCard: {
     borderRadius: 20,
@@ -285,8 +289,11 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   userName: {
-    fontWeight: 'bold',
+    fontFamily: 'ProductSans-Bold',
     fontSize: 20,
+  },
+  cardParagraph: {
+    fontFamily: 'ProductSans-Regular',
   },
 });
 
