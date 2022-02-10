@@ -5,6 +5,9 @@
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
+    "apkprod": "npx react-native run-android --variant=release",
+    "aab": "cd android/ && ./gradlew bundleRelease",
+    "clean": "cd android/ && ./gradlew clean",
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
