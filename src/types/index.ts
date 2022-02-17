@@ -17,3 +17,14 @@ export interface OrderTypes {
   status: string;
   drugs: Array<DrugOrderTypes>;
 }
+export interface PharmacyTypes {
+  id: number;
+  name: string;
+  cover: string;
+  address: string;
+  city: string;
+  lat: number;
+  lng: number;
+  phoneNumber: string;
+  isOpen: boolean;
+}

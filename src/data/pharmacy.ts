@@ -1,0 +1,111 @@
+import {PharmacyTypes} from '../types';
+
+export const pharmacy: Array<PharmacyTypes> = [
+  {
+    id: 1,
+    name: 'Pharmacie Santé',
+    cover:
+      'https://www.goafricaonline.com/uploads/media/company_media/0002/46/company_media_big/145112_60f5a733970a2-entr%C3%A9e-pharmacie-sante-pour-tous-cote-ivoire.png',
+    address: "Abidjan, Côte d'Ivoire",
+    city: 'Abidjan',
+    lat: 5.3599517,
+    lng: -4.0082563,
+    phoneNumber: '+2250748682035',
+    isOpen: true,
+  },
+  {
+    id: 2,
+    name: 'Pharmacie du Marché',
+    cover:
+      'https://pharmaciemarche-convention-paris.mesoigner.fr/media/pharmacy_header/uploads/pharmacies/b829c2f272357461cae17321d5c3766e.jpg',
+    address: "San-pedro, Côte d'Ivoire",
+    city: 'San-pedro',
+    lat: 5.3599517,
+    lng: -4.0082563,
+    phoneNumber: '+2250748682035',
+    isOpen: true,
+  },
+  {
+    id: 3,
+    name: 'Pharmacie des Arts',
+    cover:
+      'https://www.ivoiresante.net/wp-content/uploads/2016/11/phcie_art.jpg',
+    address: "Abidjan, Côte d'Ivoire",
+    city: 'Abidjan',
+    lat: 5.3599517,
+    lng: -4.0082563,
+    phoneNumber: '+2250748682035',
+    isOpen: true,
+  },
+  {
+    id: 4,
+    name: 'Pharmacie du Bardo',
+    cover:
+      'https://firebasestorage.googleapis.com/v0/b/guineene-express.appspot.com/o/drivers%2Fdownload%20(1).jpeg?alt=media&token=83dc3ef2-4f4a-4f1e-bddc-9acd0515cfb7',
+    address: "San-pedro, Côte d'Ivoire",
+    city: 'San-pedro',
+    lat: 5.3599517,
+    lng: -4.0082563,
+    phoneNumber: '+2250748682035',
+    isOpen: true,
+  },
+  {
+    id: 5,
+    name: 'Pharmacie de la Riviera2',
+    cover: 'https://nice.city-life.fr/images/fiche/290/807.jpg',
+    address: "Abidjan, Côte d'Ivoire",
+    city: 'Abidjan',
+    lat: 5.3599517,
+    lng: -4.0082563,
+    phoneNumber: '+2250748682035',
+    isOpen: true,
+  },
+  {
+    id: 6,
+    name: 'Pharmacie Saint-Joseph',
+    cover:
+      'https://www.goafricaonline.com/uploads/media/company_media/0001/73/company_media_big/72119_5d2d9614b1f55-facade-st-joseph-cote-ivoire.JPG',
+    address: "Abidjan, Côte d'Ivoire",
+    city: 'Abidjan',
+    lat: 5.3599517,
+    lng: -4.0082563,
+    phoneNumber: '+2250748682035',
+    isOpen: true,
+  },
+  {
+    id: 7,
+    name: 'Pharmacie Fatima',
+    cover:
+      'https://www.ivoiresante.net/wp-content/uploads/2019/03/phcie-fatima-450x222.jpg',
+    address: "Abidjan, Côte d'Ivoire",
+    city: 'Abidjan',
+    lat: 5.3599517,
+    lng: -4.0082563,
+    phoneNumber: '+2250748682035',
+    isOpen: true,
+  },
+  {
+    id: 8,
+    name: 'Pharmacie Sainte-Rita',
+    cover:
+      'https://ci.africexplorer.com/Symfony/web/bundles/structure/blaguestruct/images/imageblaguestruct/217.capturea0min4845.png',
+    address: "Abidjan, Côte d'Ivoire",
+    city: 'Abidjan',
+    lat: 5.3599517,
+    lng: -4.0082563,
+    phoneNumber: '+2250748682035',
+    isOpen: true,
+  },
+  {
+    id: 9,
+    name: 'Pharmacie Akeikoi',
+    cover:
+      'https://business.abidjan.net/public/assets/uploads/pagesjaunes/akeiko.jpg',
+    address: "Abidjan, Côte d'Ivoire",
+    city: 'Abidjan',
+    lat: 5.3599517,
+    lng: -4.0082563,
+    phoneNumber: '+2250748682035',
+    isOpen: true,
+  },
+];

@@ -25,6 +25,7 @@ const MenuTab = ({t, theme}: any) => {
         component={HomeScreen}
         options={{
           title: t('Home'),
+          headerShown: false,
           tabBarLabelStyle: {
             fontSize: 16,
             fontFamily: 'ProductSans-Bold',
