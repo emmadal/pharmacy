@@ -1,6 +1,6 @@
 {
-  "name": "Pharmacy",
-  "version": "0.0.1",
+  "name": "pharmacy",
+  "version": "1.0",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
