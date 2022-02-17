@@ -121,5 +121,7 @@
     "You don't have rights to access your location": "You don't have rights to access your location",
     "You can use the location": "You can use the location",
     "A another main address is already added. Please deactivate it and add this new address like main address": "A another main address is already added. Please deactivate it and add this new address like main address",
-    "A another main address is already exist. Please deactivate it and edit this address like main address": "A another main address is already exist. Please deactivate it and edit this address like main address"
+    "A another main address is already exist. Please deactivate it and edit this address like main address": "A another main address is already exist. Please deactivate it and edit this address like main address",
+    "There is no current order": "There is no current order",
+    "Your cart is empty. Please add a few items.": "Your cart is empty. Please add a few items."
 }

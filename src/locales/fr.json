@@ -122,5 +122,7 @@
     "You don't have rights to access your location": "Vous n'avez pas le droit d'accéder à votre position",
     "You can use the location": "Vous pouvez utiliser la localisation",
     "A another main address is already added. Please deactivate it and add this new address like main address": "Une autre adresse principale est déjà ajoutée. Veuillez la désactiver et ajouter cette nouvelle adresse comme adresse principale",
-    "A another main address is already exist. Please deactivate it and edit this address like main address": "Une autre adresse principale existe déjà. Veuillez la désactiver et modifier cette adresse comme adresse principale"
+    "A another main address is already exist. Please deactivate it and edit this address like main address": "Une autre adresse principale existe déjà. Veuillez la désactiver et modifier cette adresse comme adresse principale",
+    "There is no current order": "Il n'y a pas de commande en cours",
+    "Your cart is empty. Please add a few items.": "Votre panier est vide. Veuillez ajouter quelques ordonnance."
 }
