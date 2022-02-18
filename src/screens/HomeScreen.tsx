@@ -1,5 +1,7 @@
 import React from 'react';
 import {View, StyleSheet, Dimensions, Platform, FlatList} from 'react-native';
+import {withTranslation} from 'react-i18next';
+import {withTheme} from 'react-native-paper';
 import PharmacyCard from '../components/PharmacyCard';
 import {pharmacy} from '../data/pharmacy';
 import {PharmacyTypes} from '../types';
@@ -26,4 +28,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default withTranslation()(withTheme(HomeScreen));

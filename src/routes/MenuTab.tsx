@@ -4,6 +4,7 @@ import {withTheme} from 'react-native-paper';
 import {withTranslation} from 'react-i18next';
 import Icon from 'react-native-vector-icons/Entypo';
 import HomeScreen from '../screens/HomeScreen';
+import HomeStack from './HomeStack';
 import OrderScreen from '../screens/OrderScreen';
 import ProfileStack from './ProfileStack';
 import {Platform} from 'react-native';
@@ -22,7 +23,7 @@ const MenuTab = ({t, theme}: any) => {
       }}>
       <Tab.Screen
         name="Home"
-        component={HomeScreen}
+        component={HomeStack}
         options={{
           title: t('Home'),
           headerShown: false,
